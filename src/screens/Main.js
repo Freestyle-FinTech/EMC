@@ -1,29 +1,31 @@
 import React, { Component } from 'react';
 import {
-  Platform,
   StyleSheet,
   Text,
   View,
-  Button
+  TouchableOpacity
 } from 'react-native';
 
-// const instructions = Platform.select({
-//   ios: 'Press Cmd+R to reload,\n' +
-//     'Cmd+D or shake for dev menu',
-//   android: 'Double tap R on your keyboard to reload,\n' +
-//     'Shake or press menu button for dev menu',
-// });
+import CarouselWrapper from '../components/CarouselWrapper';
 
-type Props = {};
-export default class Main extends Component<Props> {
+export default class Main extends Component {
   render() {
     return (
       <View style={styles.container}>
-        <Text style={styles.welcome}>
-          Main
-        </Text>
-        <Button onPress={() => this.props.navigation.navigate("Login")} title="Login" />
-        <Button onPress={() => this.props.navigation.navigate("Register")} title="Register" />          
+        <CarouselWrapper/>
+        <View style={styles.buttons}>
+          <TouchableOpacity 
+            onPress={() => this.props.navigation.navigate("Register")}
+            style={styles.loginButton}>
+            <Text style={{fontSize: 20,  color: 'white', textAlign: 'center' }}>Sign up</Text>
+          </TouchableOpacity>    
+          <TouchableOpacity 
+            onPress={() => this.props.navigation.navigate("Login")}
+            style={[styles.loginButton, styles.registerButton]}>
+            
+            <Text style={{fontSize: 20, color: 'rgb(65,65,67)', textAlign: 'center' }}>Log in</Text>
+          </TouchableOpacity>
+        </View>
       </View>
     );
   }
@@ -32,13 +34,27 @@ export default class Main extends Component<Props> {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: '#F5FCFF',
+    backgroundColor: "rgb(65,65,67)",
+    flexDirection: "column",
+    justifyContent: "space-between"
   },
-  welcome: {
-    fontSize: 20,
-    textAlign: 'center',
-    margin: 10,
+  buttons: {
+    backgroundColor: 'white',
+    borderRadius: 10,
+    flex: 2,
+    alignItems: "center"
+  },
+  loginButton: {
+    marginTop: 10,
+    justifyContent: 'center',
+    backgroundColor: 'rgb(65,65,67)',
+    height: 40,
+    width: '90%',
+    borderRadius: 20
+  },
+  registerButton: {
+    backgroundColor: "white",
+    borderWidth: 2,
+    borderColor: 'rgb(65,65,67)'
   }
 });

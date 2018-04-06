@@ -6,7 +6,7 @@ import portfolio from './portfolios';
 const AppReducer = combineReducers({
   // nav,
   user,
-  portfolio
+  portfolios
 });
 
 export default AppReducer;

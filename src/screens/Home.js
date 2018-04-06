@@ -5,7 +5,9 @@ import {
   Platform,
   StyleSheet,
   Text,
-  View
+  View,
+  FlatList,
+  ScrollView
 } from 'react-native';
 
 // const instructions = Platform.select({
@@ -15,35 +17,62 @@ import {
 //     'Shake or press menu button for dev menu',
 // });
 
+const ListItem = (props) => (
+  <View style={{
+    flex: 1,
+    margin: 5,
+    minWidth: 150,
+    maxWidth: 150,
+    height: 150,
+    maxHeight:150,
+    backgroundColor: '#CCC',
+    borderRadius: 15,
+    justifyContent: "center", 
+    alignItems: "center"
+    }}>
+    <View style={{backgroundColor: "white"}}>
+      <Text>{props.asset.name}</Text>
+      <Text style={{color: "rgb(109,233,180)"}}>{props.asset.worth}</Text>
+    </View>
+  </View>
+)
+
 type Props = {};
 class Home extends Component<Props> {
   render() {
     return (
-      <View style={styles.container}>
-        <Text style={styles.welcome}>
-          welcome, {this.props.user.userName}
-        </Text>
-      </View>
+      <ScrollView style={styles.container}>
+        <View style={{height: 200, width: '100%', borderRadius: 15, backgroundColor: "white"}}>
+          
+        </View>
+        <FlatList
+          contentContainerStyle={styles.list}
+          data={this.props.portfolios}
+          renderItem={({item}) => <ListItem asset={item} />}
+        />
+      </ScrollView>
     );
   }
 }
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: '#F5FCFF',
+    backgroundColor: 'rgb(65,65,67)',
   },
   welcome: {
     fontSize: 20,
     textAlign: 'center',
     margin: 10,
+  },
+  list: {
+    justifyContent: 'flex-start',
+    flexDirection: 'row',
+    flexWrap: 'wrap',
   }
 });
 
 const mapStateToProps = (state) => ({
-  user: state.user
+  portfolios: state.portfolios
 })
 
 export default connect(mapStateToProps)(Home)

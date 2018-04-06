@@ -33,7 +33,11 @@ export const AppNavigator = StackNavigator({
   Register: { screen: Register },
   App: { screen: appStack}
 }, {
-  initialRouteName: 'Main',
+    headerMode: 'none',
+    navigationOptions: {
+        headerVisible: false,
+    },
+    initialRouteName: 'Main',
 });
 
 export default AppNavigator;

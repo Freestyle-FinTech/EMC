@@ -37,7 +37,7 @@ const initialState = [
   }
 ]
 
-export default portfolio = (state = initialState, action) => {
+export default portfolios = (state = initialState, action) => {
   // switch (action.type) {
   //   default:
   //     return state
