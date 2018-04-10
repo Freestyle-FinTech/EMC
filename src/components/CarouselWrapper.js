@@ -9,14 +9,14 @@ import {
 import Carousel from 'react-native-carousel';
 
 export default CarouselWrapper = () => (
-  <View style={{flex: 8, borderRadius: 10, marginBottom: 4}}>
+  <View style={{flex: 10, borderRadius: 10, marginBottom: 4}}>
     <Carousel
       styles={styles.carousel}
       animate={false}
       indicatorAtBottom={true}
       indicatorColor="#FFFFFF"
       indicatorOffset={10}>
-      <View style={{borderRadius: 10, position: 'absolute', height: '100%', width: '100%'}}>
+      <View style={{borderRadius: 10, height: '100%', flex: 1}}>
         <ImageBackground
           style={{
             flex: 1
@@ -40,7 +40,7 @@ export default CarouselWrapper = () => (
 const styles = StyleSheet.create({
   carousel: {
     flex: 1,
-    backgroundColor: "green"
+    backgroundColor: "green",
   },
   lol: {
     flex: 1,
