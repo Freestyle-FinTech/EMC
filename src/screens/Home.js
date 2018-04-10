@@ -9,6 +9,7 @@ import {
   FlatList,
   ScrollView
 } from 'react-native';
+import CustomButton from '../components/CustomButton';
 
 // const instructions = Platform.select({
 //   ios: 'Press Cmd+R to reload,\n' +
@@ -31,8 +32,12 @@ const ListItem = (props) => (
     alignItems: "center"
     }}>
     <View style={{backgroundColor: "white"}}>
-      <Text>{props.asset.name}</Text>
-      <Text style={{color: "rgb(109,233,180)"}}>{props.asset.worth}</Text>
+      <Text>
+        {props.asset.name}
+      </Text>
+      <Text style={{color: "rgb(109,233,180)"}}>
+        {props.asset.worth}
+      </Text>
     </View>
   </View>
 )
@@ -49,6 +54,10 @@ class Home extends Component<Props> {
           contentContainerStyle={styles.list}
           data={this.props.portfolios}
           renderItem={({item}) => <ListItem asset={item} />}
+        />
+        <CustomButton
+          buttonAction={() => {}}
+          buttonText="Create"
         />
       </ScrollView>
     );
@@ -72,7 +81,7 @@ const styles = StyleSheet.create({
 });
 
 const mapStateToProps = (state) => ({
-  portfolios: state.portfolios
+  portfolios: state.user.portfolios
 })
 
 export default connect(mapStateToProps)(Home)

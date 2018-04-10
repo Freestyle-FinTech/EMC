@@ -9,13 +9,6 @@ import {
   Image
 } from 'react-native';
 
-// const instructions = Platform.select({
-//   ios: 'Press Cmd+R to reload,\n' +
-//     'Cmd+D or shake for dev menu',
-//   android: 'Double tap R on your keyboard to reload,\n' +
-//     'Shake or press menu button for dev menu',
-// });
-
 type Props = {};
 export default class Login extends Component<Props> {
   state = {
@@ -77,6 +70,7 @@ const styles = StyleSheet.create({
     borderBottomWidth: 2,
     borderBottomColor: 'rgb(65,65,67)',
     width: '90%',
+    height: 40
   },
   button: {
     marginTop: 20,
