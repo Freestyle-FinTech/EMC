@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { VictoryLine, VictoryChart, VictoryTheme } from 'victory-native';
 
 import {
   Platform,
@@ -44,11 +45,32 @@ const ListItem = (props) => (
 
 type Props = {};
 class Home extends Component<Props> {
+  
   render() {
     return (
       <ScrollView style={styles.container}>
         <View style={{height: 200, width: '100%', borderRadius: 15, backgroundColor: "white"}}>
-          
+          <VictoryChart
+            theme={VictoryTheme.material}
+          >
+            <VictoryLine
+              style={{
+                data: { stroke: "#c43a31" },
+                parent: { border: "1px solid #ccc"}
+              }}
+              animate={{
+                duration: 2000,
+                onLoad: { duration: 1000 }
+              }}
+              data={[
+                { x: 1, y: 2 },
+                { x: 2, y: 3 },
+                { x: 3, y: 5 },
+                { x: 4, y: 4 },
+                { x: 5, y: 7 }
+              ]}
+            />
+          </VictoryChart>
         </View>
         <FlatList
           contentContainerStyle={styles.list}
