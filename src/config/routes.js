@@ -31,13 +31,15 @@ export const AppNavigator = StackNavigator({
   Main: { screen: Main },
   Login: { screen: Login },
   Register: { screen: Register },
-  App: { screen: appStack}
+  App: { screen: appStack},
+  Home: { screen: Home },
+  
 }, {
     headerMode: 'none',
     navigationOptions: {
         headerVisible: false,
     },
-    initialRouteName: 'Main',
+    initialRouteName: 'Home',
 });
 
 export default AppNavigator;
