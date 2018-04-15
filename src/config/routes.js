@@ -33,13 +33,14 @@ export const AppNavigator = StackNavigator({
   Login: { screen: Login },
   Register: { screen: Register },
   App: { screen: appStack},
-  PortfolioCreate: {screen: CreatePortfolio}
+  PortfolioCreate: {screen: CreatePortfolio},
+  Home: { screen: Home },
 }, {
     headerMode: 'none',
     navigationOptions: {
         headerVisible: false,
     },
-    initialRouteName: 'Main',
+    initialRouteName: 'Home',
 });
 
 export default AppNavigator;

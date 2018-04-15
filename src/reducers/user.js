@@ -11,7 +11,8 @@ const initialState = {
       sotcks: [
         {
           id: 12313,
-          name: "Nasa"
+          name: "Nasa",
+          priceHistory: [{date: "34.56"}]
         }
       ]
     },
@@ -41,6 +42,17 @@ const initialState = {
     }
   ]
 }
+
+// var chartData=[]
+
+// for( var i; i < initialState.portfolios.length; i++ ){
+//   initialState.portfolios[i]
+// }
+// initialState.portfolios.map ( portfolio => {
+//   portfolio.sotcks.map(  stock => {
+//     stock.priceHistory[0]
+//   })
+// })
 
 const user = (state = initialState, action) => {
   switch (action.type) {

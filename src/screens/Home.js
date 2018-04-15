@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { VictoryLine, VictoryChart, VictoryTheme, VictoryBar } from 'victory-native';
 
 import {
   Platform,
@@ -7,7 +8,9 @@ import {
   Text,
   View,
   FlatList,
-  ScrollView
+  ScrollView,
+  TouchableOpacity,
+  WebView
 } from 'react-native';
 import CustomButton from '../components/CustomButton';
 
@@ -43,12 +46,75 @@ const ListItem = (props) => (
 )
 
 type Props = {};
+
 class Home extends Component<Props> {
+  state = {
+    key: "day",
+    data: {
+      day: [ 
+        { x: 1, y: 2 },
+        { x: 2, y: 3 },
+        { x: 3, y: 4 },
+        { x: 4, y: 5 },        
+        { x: 5, y: 1 },
+        { x: 4, y: 1 },
+        { x: 3, y: 2 },
+        { x: 5, y: 3 } 
+      ],
+      week: [ 
+        { x: 2, y: 7 },
+        { x: 3, y: 1 },
+        { x: 1, y: 6 },
+        { x: 1, y: 5 },
+        { x: 3, y: 5 },
+      ],
+      month: [ 
+        { x: 3, y: 5 },
+        { x: 1, y: 7 },
+        { x: 4, y: 5 }, 
+        { x: 4, y: 4 },
+        { x: 7, y: 3 },
+      ]      
+    }
+  }
+
+  buildChart = () => (
+    <VictoryChart
+        theme={null}
+        // animate={{ duration: 1000, easing: "bounce" }}
+        // animate={true}
+        height={250}
+        categories={null}
+        style={{
+          labels: null
+        }}
+      >
+        <VictoryLine
+          style={{
+            data: { stroke: "green", fill: "orange" },
+            parent: { border: "1px solid #ccc"}
+          }}
+          data={this.state.data[this.state.key]}
+        />
+    </VictoryChart>
+  )
+
   render() {
     return (
       <ScrollView style={styles.container}>
-        <View style={{height: 200, width: '100%', borderRadius: 15, backgroundColor: "white"}}>
-          
+        <View style={{height: 250, width: '100%', borderRadius: 15, backgroundColor: "white"}}>
+          {this.buildChart()}
+        </View>
+        <View style={styles.chart}>
+          <TouchableOpacity style={styles.chartButton} onPress={ () => this.setState({key: "day"})}>
+            <Text>day</Text>
+          </TouchableOpacity>
+          <TouchableOpacity style={styles.chartButton} onPress={ () => this.setState({key: "week"})}>
+            <Text>week</Text>
+          </TouchableOpacity>
+          <TouchableOpacity style={styles.chartButton} onPress={ () => this.setState({key: "month"})}>
+            <Text>month</Text>
+          </TouchableOpacity>
         </View>
         <View style={styles.portfolios}>
           <FlatList
