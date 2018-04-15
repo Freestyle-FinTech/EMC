@@ -9,6 +9,7 @@ import Search from '../screens/Search';
 import LeaderBoard from '../screens/LeaderBoard';
 import Login from '../screens/Login';
 import Register from '../screens/Register';
+import CreatePortfolio from '../screens/CreatePortfolio'
 
 export const appStack = TabNavigator({
   Home: { screen: Home },
@@ -31,7 +32,8 @@ export const AppNavigator = StackNavigator({
   Main: { screen: Main },
   Login: { screen: Login },
   Register: { screen: Register },
-  App: { screen: appStack}
+  App: { screen: appStack},
+  PortfolioCreate: {screen: CreatePortfolio}
 }, {
     headerMode: 'none',
     navigationOptions: {

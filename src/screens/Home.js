@@ -50,15 +50,28 @@ class Home extends Component<Props> {
         <View style={{height: 200, width: '100%', borderRadius: 15, backgroundColor: "white"}}>
           
         </View>
-        <FlatList
-          contentContainerStyle={styles.list}
-          data={this.props.portfolios}
-          renderItem={({item}) => <ListItem asset={item} />}
-        />
-        <CustomButton
-          buttonAction={() => {}}
-          buttonText="Create"
-        />
+        <View style={styles.portfolios}>
+          <FlatList
+            contentContainerStyle={styles.list}
+            data={this.props.portfolios}
+            renderItem={({item}) => <ListItem asset={item} />}
+          />
+          <CustomButton
+            buttonAction={() => { this.props.navigation.navigate('PortfolioCreate')}}
+            buttonText="Create"
+          />
+        </View>
+        <View style={styles.portfolios}>
+          <FlatList
+            contentContainerStyle={styles.list}
+            data={this.props.portfolios}
+            renderItem={({item}) => <ListItem asset={item} />}
+          />
+          <CustomButton
+            buttonAction={() => {}}
+            buttonText="Refresh"
+          />
+        </View>
       </ScrollView>
     );
   }
@@ -77,6 +90,14 @@ const styles = StyleSheet.create({
     justifyContent: 'flex-start',
     flexDirection: 'row',
     flexWrap: 'wrap',
+  },
+  portfolios: {
+    borderRadius: 15,
+    backgroundColor: 'white',
+    marginTop: 15,
+    paddingBottom: 15,
+    justifyContent: 'center',
+    alignItems: 'center'
   }
 });
 
