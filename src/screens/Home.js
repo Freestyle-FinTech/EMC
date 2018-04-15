@@ -46,6 +46,7 @@ const ListItem = (props) => (
 )
 
 type Props = {};
+
 class Home extends Component<Props> {
   state = {
     key: "day",
@@ -79,74 +80,52 @@ class Home extends Component<Props> {
 
   buildChart = () => (
     <VictoryChart
-        theme={VictoryTheme.material}
+        theme={null}
         // animate={{ duration: 1000, easing: "bounce" }}
         // animate={true}
+        height={250}
+        categories={null}
+        style={{
+          labels: null
+        }}
       >
-      {/* <VictoryBar
-          data={this.state.data[this.state.key]}
-          style={{
-            data: { fill: "tomato", width: 12 }
-          }}
-          animate={{
-            onExit: {
-              duration: 500,
-              before: () => ({
-                _y: 0,
-                fill: "orange",
-                label: "BYE"
-              })
-            }
-          }}
-        /> */}
-        {/* <VictoryLine
-          animate={true}
-          // clipPath={275}
-          // renderClipPath(props, id) {
-          //   props.width = props.width || 275;
+        <VictoryLine
           style={{
             data: { stroke: "green", fill: "orange" },
             parent: { border: "1px solid #ccc"}
           }}
           data={this.state.data[this.state.key]}
-        /> */}
+        />
     </VictoryChart>
   )
 
   render() {
-    // const data = ;
-    // debugger
-    // console.log(this.state.data[this.state.key]);
     return (
-        <WebView
-        source={{uri: 'https://github.com/facebook/react-native'}}
-        style={{marginTop: 20}}
-      />
-      // <ScrollView style={styles.container}>
-      //   <View style={{height: 200, width: '100%', borderRadius: 15, backgroundColor: "white"}}>
-      //     {/* {this.buildChart()} */}
-      //   </View>
-      //   <View style={styles.chart}>
-      //     <TouchableOpacity style={styles.chartButton} onPress={ () => this.setState({key: "day"})}>
-      //       <Text>day</Text>
-      //     </TouchableOpacity>
-      //     <TouchableOpacity style={styles.chartButton} onPress={ () => this.setState({key: "week"})}>
-      //       <Text>week</Text>
-      //     </TouchableOpacity>
-      //     <TouchableOpacity style={styles.chartButton} onPress={ () => this.setState({key: "month"})}>
-      //       <Text>month</Text>
-      //     </TouchableOpacity>
-      //   </View>
-      //   <FlatList
-      //     contentContainerStyle={styles.list}
-      //     data={this.props.portfolios}
-      //     renderItem={({item}) => <ListItem asset={item} />}
-      //   />
-      //   <CustomButton
-      //     buttonAction={() => {}}
-      //     buttonText="Create"
-      //   />
-      // </ScrollView>
+      <ScrollView style={styles.container}>
+        <View style={{height: 250, width: '100%', borderRadius: 15, backgroundColor: "white"}}>
+          {this.buildChart()}
+        </View>
+        <View style={styles.chart}>
+          <TouchableOpacity style={styles.chartButton} onPress={ () => this.setState({key: "day"})}>
+            <Text>day</Text>
+          </TouchableOpacity>
+          <TouchableOpacity style={styles.chartButton} onPress={ () => this.setState({key: "week"})}>
+            <Text>week</Text>
+          </TouchableOpacity>
+          <TouchableOpacity style={styles.chartButton} onPress={ () => this.setState({key: "month"})}>
+            <Text>month</Text>
+          </TouchableOpacity>
+        </View>
+        <FlatList
+          contentContainerStyle={styles.list}
+          data={this.props.portfolios}
+          renderItem={({item}) => <ListItem asset={item} />}
+        />
+        <CustomButton
+          buttonAction={() => {}}
+          buttonText="Create"
+        />
+      </ScrollView>
     );
   }
 }
