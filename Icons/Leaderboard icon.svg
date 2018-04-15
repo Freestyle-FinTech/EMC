@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="19px" height="19px" viewBox="0 0 19 19" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 46.2 (44496) - http://www.bohemiancoding.com/sketch -->
+    <title>Leaderboard</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="Symbols" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" opacity="0.800000012">
+        <g id="Leader-board---unselected" transform="translate(-22.000000, -3.000000)" stroke="#414143">
+            <g id="Leaderboard">
+                <g transform="translate(22.000000, 3.000000)">
+                    <rect id="Rectangle-9" x="0.5" y="8.5" width="7" height="10" rx="2"></rect>
+                    <rect id="Rectangle-9-Copy" x="11.5" y="0.5" width="7" height="18" rx="2"></rect>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>
