@@ -1,4 +1,5 @@
 import React from 'react';
+import {Image} from 'react-native';
 import { addNavigationHelpers, StackNavigator, TabNavigator, TabBarBottom } from 'react-navigation';
 import { connect } from 'react-redux';
 import Main from '../screens/Main';
@@ -12,15 +13,86 @@ import Register from '../screens/Register';
 import CreatePortfolio from '../screens/CreatePortfolio'
 
 export const appStack = TabNavigator({
+  Settings: { screen: Settings },
   Home: { screen: Home },
+  Search: { screen: Search },
   Market: { screen: Market },
   LeaderBoard: { screen: LeaderBoard },
-  Search: { screen: Search },
-  Settings: { screen: Settings },
 },{
+  navigationOptions: ({ navigation }) => ({
+    tabBarIcon: ({ focused, tintColor }) => {
+      const { routeName } = navigation.state;
+      let iconName;
+
+      if (routeName === 'Home') {
+        if(!focused) {
+          return <Image 
+            style={{width: 25, height: 25}}
+            source={require('../../Icons/Home.png')}
+          />
+        } else {
+          return <Image 
+            style={{width: 25, height: 25}}
+            source={require('../../Icons/HomeSelected.png')}
+          />
+        }
+      } else if (routeName === 'Settings') {
+        if(!focused) {
+          return <Image 
+            style={{width: 25, height: 25}}
+            source={require('../../Icons/Settings.png')}
+          />
+        } else {
+          return <Image 
+            style={{width: 25, height: 25}}
+            source={require('../../Icons/SettingsSelected.png')}
+          />
+        }
+      } else if (routeName === 'Market') {
+        if(!focused) {
+          return <Image 
+            style={{width: 20, height: 20}}
+            source={require('../../Icons/Market.png')}
+          />
+        } else {
+          return <Image 
+            style={{width: 20, height: 20}}
+            source={require('../../Icons/MarketSelected.png')}
+          />
+        }
+      } else if (routeName === 'LeaderBoard') {
+        if(!focused) {
+          return <Image 
+            style={{width: 20, height: 20}}
+            source={require('../../Icons/Leaderboard.png')}
+          />
+        } else {
+          return <Image 
+            style={{width: 20, height: 20}}
+            source={require('../../Icons/LeaderboardSelected.png')}
+          />
+        }
+      } else if (routeName === 'Search') {
+        if(!focused) {
+          return <Image 
+            style={{width: 20, height: 20}}
+            source={require('../../Icons/Search.png')}
+          />
+        } else {
+          return <Image 
+            style={{width: 25, height: 25}}
+            source={require('../../Icons/SearchSelected.png')}
+          />
+        }
+      }
+    },
+  }),
   tabBarOptions: {
-    activeTintColor: 'tomato',
-    inactiveTintColor: 'gray',
+    style: {
+      backgroundColor: 'white',
+    },
+    activeTintColor: 'rgb(65,65,67)',
+    inactiveTintColor: 'rgba(65,65,67,0.8)',
   },
   tabBarComponent: TabBarBottom,
   tabBarPosition: 'bottom',
@@ -34,13 +106,13 @@ export const AppNavigator = StackNavigator({
   Register: { screen: Register },
   App: { screen: appStack},
   PortfolioCreate: {screen: CreatePortfolio},
-  Home: { screen: Home },
+  // Home: { screen: Home },
 }, {
     headerMode: 'none',
     navigationOptions: {
         headerVisible: false,
     },
-    initialRouteName: 'Home',
+    initialRouteName: 'Main',
 });
 
 export default AppNavigator;
