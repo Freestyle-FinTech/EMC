@@ -89,6 +89,15 @@ export const appStack = TabNavigator({
   }),
   tabBarOptions: {
     style: {
+      height: 50,
+      paddingTop: 10,
+      shadowColor: '#000000',
+      shadowOffset: {
+        width: 0,
+        height: 2
+      },
+      shadowRadius: 4,
+      shadowOpacity: 1.0,
       backgroundColor: 'white',
     },
     activeTintColor: 'rgb(65,65,67)',
