@@ -27,24 +27,24 @@ export const appStack = TabNavigator({
       if (routeName === 'Home') {
         if(!focused) {
           return <Image 
-            style={{width: 25, height: 25}}
+            style={{width: 20, height: 20}}
             source={require('../../Icons/Home.png')}
           />
         } else {
           return <Image 
-            style={{width: 25, height: 25}}
+            style={{width: 20, height: 20}}
             source={require('../../Icons/HomeSelected.png')}
           />
         }
       } else if (routeName === 'Settings') {
         if(!focused) {
           return <Image 
-            style={{width: 25, height: 25}}
+            style={{width: 20, height: 20}}
             source={require('../../Icons/Settings.png')}
           />
         } else {
           return <Image 
-            style={{width: 25, height: 25}}
+            style={{width: 20, height: 20}}
             source={require('../../Icons/SettingsSelected.png')}
           />
         }
@@ -80,7 +80,7 @@ export const appStack = TabNavigator({
           />
         } else {
           return <Image 
-            style={{width: 25, height: 25}}
+            style={{width: 20, height: 20}}
             source={require('../../Icons/SearchSelected.png')}
           />
         }
@@ -103,6 +103,7 @@ export const appStack = TabNavigator({
     activeTintColor: 'rgb(65,65,67)',
     inactiveTintColor: 'rgba(65,65,67,0.8)',
   },
+  initialRouteName: "Home",
   tabBarComponent: TabBarBottom,
   tabBarPosition: 'bottom',
   animationEnabled: false,
@@ -115,7 +116,6 @@ export const AppNavigator = StackNavigator({
   Register: { screen: Register },
   App: { screen: appStack},
   PortfolioCreate: {screen: CreatePortfolio},
-  // Home: { screen: Home },
 }, {
     headerMode: 'none',
     navigationOptions: {

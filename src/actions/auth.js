@@ -1,15 +1,16 @@
-export const login = (username, password) => {
-  return {
-      type: 'LOGIN',
-      username: username,
-      password: password
-  };
+// import axios from 'axios';
+export const login = (user) => dispatch => {
+  debugger  
+  dispatch({
+    type: "LOGIN",
+    payload: user
+  })
 };
 
-export const logout = () => {
-  return {
+export const logout = () => dispatch => {
+  dispatch({
       type: 'LOGOUT'
-  };
+  });
 };
 
 export const signup = (username, password) => {

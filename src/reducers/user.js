@@ -1,46 +1,6 @@
 const initialState = {
-  isLoggedIn: true,  
-  userName: "Ryan Gary",
-  userId: "4x3sf4g5w2r4ad",
-  portfolios: [
-    {
-      id: 1,
-      name: "AeroSpace",
-      worth: 82.56,
-      imgUrl: "",
-      sotcks: [
-        {
-          id: 12313,
-          name: "Nasa",
-          priceHistory: [{date: "34.56"}]
-        }
-      ]
-    },
-    {
-      id: 2,
-      name: "Cryptos",
-      worth: 29.56,
-      imgUrl: "",
-      sotcks: [
-        {
-          id: 12313,
-          name: "BitCoin"
-        }
-      ]
-    },
-    {
-      id: 3,
-      name: "green tech",
-      worth: 126.56,
-      imgUrl: "",
-      sotcks: [
-        {
-          id: 12313,
-          name: "Tesla"
-        }
-      ]
-    }
-  ]
+  isLoggedIn: false,  
+  portfolios: []
 }
 
 // var chartData=[]
@@ -55,19 +15,15 @@ const initialState = {
 // })
 
 const user = (state = initialState, action) => {
+  // debugger
   switch (action.type) {
     case 'LOGIN': 
-        return { ...state, 
+        return { ...action.payload, 
             isLoggedIn: true,
-            username: action.username,
-            password: action.password
         }
     case 'LOGOUT':
-        return { ...state, 
-            isLoggedIn: false,
-            username: '',
-            password: ''
-        }
+        debugger
+        return {isLoggedIn: false}
     default:
         return state;
   }
