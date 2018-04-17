@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { VictoryLine, VictoryChart, VictoryTheme, VictoryBar } from 'victory-native';
-
 import {
   Platform,
   StyleSheet,
@@ -12,14 +11,8 @@ import {
   TouchableOpacity,
   WebView
 } from 'react-native';
-import CustomButton from '../components/CustomButton';
 
-// const instructions = Platform.select({
-//   ios: 'Press Cmd+R to reload,\n' +
-//     'Cmd+D or shake for dev menu',
-//   android: 'Double tap R on your keyboard to reload,\n' +
-//     'Shake or press menu button for dev menu',
-// });
+import CustomButton from '../components/CustomButton';
 
 const ListItem = (props) => (
   <View style={{
@@ -117,9 +110,11 @@ class Home extends Component<Props> {
           </TouchableOpacity>
         </View>
         <View style={styles.portfolios}>
+          <Text>Welcome {this.props.user.userName}</Text>
           <FlatList
             contentContainerStyle={styles.list}
-            data={this.props.portfolios}
+            numColumns={2}
+            data={this.props.user.portfolios}
             renderItem={({item}) => <ListItem asset={item} />}
           />
           <CustomButton
@@ -129,6 +124,7 @@ class Home extends Component<Props> {
         </View>
         <View style={styles.portfolios}>
           <FlatList
+            numColumns={2}            
             contentContainerStyle={styles.list}
             data={this.props.portfolios}
             renderItem={({item}) => <ListItem asset={item} />}
@@ -153,9 +149,7 @@ const styles = StyleSheet.create({
     margin: 10,
   },
   list: {
-    justifyContent: 'flex-start',
-    flexDirection: 'row',
-    flexWrap: 'wrap',
+    // backgroundColor: "red",
   },
   portfolios: {
     borderRadius: 15,
@@ -163,12 +157,12 @@ const styles = StyleSheet.create({
     marginTop: 15,
     paddingBottom: 15,
     justifyContent: 'center',
-    alignItems: 'center'
+    // alignItems: 'center'
   }
 });
 
 const mapStateToProps = (state) => ({
-  portfolios: state.user.portfolios
+  user: state.user
 })
 
 export default connect(mapStateToProps)(Home)

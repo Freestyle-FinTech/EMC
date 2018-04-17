@@ -3,9 +3,12 @@ import {
   Platform,
   StyleSheet,
   Text,
-  View
+  View,
+  TouchableOpacity
 } from 'react-native';
+import {connect, dispatch} from 'react-redux'
 
+import { logout } from '../actions/auth'
 // const instructions = Platform.select({
 //   ios: 'Press Cmd+R to reload,\n' +
 //     'Cmd+D or shake for dev menu',
@@ -14,17 +17,30 @@ import {
 // });
 
 type Props = {};
-export default class Settings extends Component<Props> {
+class Settings extends Component<Props> {
+  onLogOutPressed = () => {
+    this.props.logout()
+    this.props.navigation.navigate('Main')
+  }
+
   render() {
     return (
       <View style={styles.container}>
-        <Text style={styles.welcome}>
-          Settings
-        </Text>
+        <TouchableOpacity onPress={this.onLogOutPressed}>
+          <Text style={styles.welcome}>
+            Log out
+          </Text>
+        </TouchableOpacity>
       </View>
     );
   }
 }
+
+mapDispatchToProps = (dispatch) => ({
+  logout: () => dispatch({type: "LOGOUT"})
+})
+
+export default connect(null, mapDispatchToProps)(Settings)
 
 const styles = StyleSheet.create({
   container: {

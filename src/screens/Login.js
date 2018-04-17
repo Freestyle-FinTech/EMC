@@ -9,12 +9,35 @@ import {
   Image
 } from 'react-native';
 
+import {connect, dispatch} from 'react-redux'
+import {login} from '../actions/auth'
+import axios from "axios"
+
 type Props = {};
-export default class Login extends Component<Props> {
+class Login extends Component<Props> {
   state = {
     username: "",
     password: ""
   }
+
+  onLoginPress = () => {
+    axios.get("http://localhost:3000/users")
+      .then(response => {
+        let user = response.data.find( user => user.userName === this.state.username && user.password === this.state.password)
+        if(user) {
+          console.log(this.props)
+          this.props.login(user)
+          // debugger
+          this.props.navigation.navigate("App")
+        } else {
+          //errors
+        }
+      })
+      .catch( err => {
+        console.log(err)
+      })
+  }
+
   render() {
     return (
       <View style={styles.container}>
@@ -27,13 +50,13 @@ export default class Login extends Component<Props> {
         />
         <TextInput
           placeholder="Username"
-          onChange={(e) => this.setState({username: e.target.value})}
+          onChangeText={ username => this.setState({username})}
           value={this.state.username}
           underlineColorAndroid='rgba(0,0,0,0)'
           style={styles.input}/>
         <TextInput
           placeholder="Password"          
-          onChange={(e) => this.setState({password: e.target.value})}
+          onChangeText={ password => this.setState({password})}
           value={this.state.password}     
           style={styles.input} 
           secureTextEntry={true}
@@ -45,7 +68,7 @@ export default class Login extends Component<Props> {
           <Text>forgot username or password?</Text>
         </TouchableOpacity>
         <TouchableOpacity 
-          onPress={() => this.props.navigation.navigate("App")}
+          onPress={this.onLoginPress}
           style={styles.button}>
           <Text style={{fontSize: 20, color: 'white', textAlign: 'center' }}>Log in</Text>
         </TouchableOpacity>
@@ -53,6 +76,13 @@ export default class Login extends Component<Props> {
     );
   }
 }
+
+dispatchMapToProps = (dispatch) => ({
+  login: (user) => dispatch({type: "LOGIN", payload: user})
+  // login
+})
+
+export default connect(null, dispatchMapToProps)(Login)
 
 const styles = StyleSheet.create({
   container: {
