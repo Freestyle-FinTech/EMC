@@ -116,12 +116,16 @@ export const AppNavigator = StackNavigator({
   Register: { screen: Register },
   App: { screen: appStack},
   PortfolioCreate: {screen: CreatePortfolio},
+  Home: {screen: Home}
 }, {
     headerMode: 'none',
     navigationOptions: {
         headerVisible: false,
     },
     initialRouteName: 'Main',
+    style: {
+      backgroundColor: 'dark-grey'
+    }
 });
 
 export default AppNavigator;

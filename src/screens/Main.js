@@ -3,11 +3,13 @@ import {
   StyleSheet,
   Text,
   View,
-  TouchableOpacity
+  TouchableOpacity,
+  Image
 } from 'react-native';
 
 import CarouselWrapper from '../components/CarouselWrapper';
 import MainButtons from '../components/MainButtons';
+import { Colors } from '../constants/styles';
 
 export default class Main extends Component {
   render() {
@@ -23,8 +25,8 @@ export default class Main extends Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "rgb(65,65,67)",
+    backgroundColor: Colors.appGrey,
     flexDirection: "column",
     justifyContent: "space-between"
-  },
+  }
 });
