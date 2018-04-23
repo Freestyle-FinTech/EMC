@@ -3,14 +3,14 @@
     {
       "userName": "Ryan Gary",
       "password": "password",
-      "userId": "1",
+      "id": "1",
       "about": "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Exercitationem repellendus amet totam dolor nostrum ex impedit, autem quas, ullam, cumque quam doloribus a. Nobis ipsa aliquam eos eligendi tempora incidunt!",
       "portfolios": [
         {
           "id": 1,
           "name": "AeroSpace",
           "worth": 82.56,
-          "imgUrl": "",
+          "imgUrl": "https://static.vecteezy.com/system/resources/previews/000/139/911/non_2x/vector-grey-gradient-abstract-background.jpg",
           "sotcks": [
             {
               "id": 1,
@@ -22,27 +22,36 @@
           "id": 1,
           "name": "AeroSpace",
           "worth": 82.56,
-          "imgUrl": "",
+          "imgUrl": "https://images.pexels.com/photos/247671/pexels-photo-247671.jpeg?auto=compress&cs=tinysrgb&h=350",
           "sotcks": [
             {
               "id": 1,
               "name": "Nasa"
             }
           ]
+        },
+        {
+          "name": "Shit",
+          "imgUrl": "https://images.pexels.com/photos/247671/pexels-photo-247671.jpeg?auto=compress&cs=tinysrgb&h=350"
+        },
+        {
+          "name": "Mn m",
+          "imgUrl": "https://images.pexels.com/photos/531880/pexels-photo-531880.jpeg?auto=compress&cs=tinysrgb&h=350"
         }
-      ]
+      ],
+      "isLoggedIn": true
     },
     {
       "userName": "Arash Asady",
-      "password": "password",      
-      "userId": "2",
+      "password": "password",
+      "id": "2",
       "about": "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Exercitationem repellendus amet totam dolor nostrum ex impedit, autem quas, ullam, cumque quam doloribus a. Nobis ipsa aliquam eos eligendi tempora incidunt!",
       "portfolios": [
         {
           "id": 1,
           "name": "Tesla",
           "worth": 42.36,
-          "imgUrl": "",
+          "imgUrl": "https://images.pexels.com/photos/531880/pexels-photo-531880.jpeg?auto=compress&cs=tinysrgb&h=350",
           "sotcks": [
             {
               "id": 2,
@@ -53,7 +62,5 @@
       ]
     }
   ],
-  "portfolios": [
-
-  ]
+  "portfolios": []
 }
