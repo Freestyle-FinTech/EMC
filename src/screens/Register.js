@@ -5,6 +5,7 @@ import {
   Text,
   View
 } from 'react-native';
+import GoBackButton from '../components/GoBackButton';
 
 // const instructions = Platform.select({
 //   ios: 'Press Cmd+R to reload,\n' +
@@ -18,6 +19,7 @@ export default class Register extends Component<Props> {
   render() {
     return (
       <View style={styles.container}>
+        <GoBackButton props={this.props.navigation}/>
         <Text style={styles.welcome}>
           Register
         </Text>
