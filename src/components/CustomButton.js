@@ -14,11 +14,10 @@ const styles = StyleSheet.create({
   button: {
     justifyContent: 'center',
     height: 40,
-    maxHeight: 40,
-    flex: 1,
     width: '90%',
     borderRadius: 20,
     backgroundColor: Colors.appGrey,
+    alignSelf: 'center'
   },
   buttonText: {
     fontSize: 20,

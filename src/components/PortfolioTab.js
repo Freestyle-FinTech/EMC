@@ -6,7 +6,6 @@ import {
   View,
   TouchableOpacity,
   ImageBackground,
-  FlatList,
   Dimensions
 } from 'react-native';
 import { Colors } from '../constants/styles';
@@ -14,27 +13,24 @@ import { Colors } from '../constants/styles';
 import PortfolioList from '../components/PortfolioList';
 
 class PortfolioTab extends Component {
+
   render(){
     return(
       <View>
         <View style={styles.portfolios}>
           <PortfolioList portfolios={this.props.user.portfolios}/>
-          <View style={styles.portfolioButton}>
-            <CustomButton
-              buttonAction={() => { this.props.navigation.navigate('PortfolioCreate')}}
-              buttonText="Create"
-            />
-          </View>
+          <CustomButton
+            buttonAction={() => { this.props.screenProps.navigate('CreatePortfolio')}}
+            buttonText="Create new"
+          />
         </View>
         <View style={styles.portfolios}>
-          <Text>Recommended</Text>
-          <PortfolioList portfolios={this.props.portfolios}/>          
-          <View style={styles.portfolioButton}>          
-            <CustomButton
-              buttonAction={() => {}}
-              buttonText="Refresh"
-            />
-          </View>
+          <Text style={styles.recommended}>Recommended</Text>
+          <PortfolioList portfolios={this.props.portfolios}/>        
+          <CustomButton
+            buttonAction={() => {}}
+            buttonText="Refresh"
+          />
         </View>
       </View>
     )
@@ -45,13 +41,14 @@ const styles = StyleSheet.create({
   portfolios: {
     borderRadius: 15,
     backgroundColor: 'white',
-    marginTop: 15,
+    marginTop: 5,
     paddingBottom: 15,
     justifyContent: 'center',
   },
-  portfolioButton: {
-    alignItems: 'center',
-  },
+  recommended: {
+    marginLeft: 15,
+    fontSize: 17
+  }
 });
 
 const mapStateToProps = (state) => ({
