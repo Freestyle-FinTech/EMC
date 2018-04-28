@@ -12,7 +12,7 @@ import { Colors } from '../constants/styles';
 
 import PortfolioList from '../components/PortfolioList';
 
-class PortfolioTab extends Component {
+class PortfoliosTab extends Component {
 
   render(){
     return(
@@ -20,7 +20,7 @@ class PortfolioTab extends Component {
         <View style={styles.portfolios}>
           <PortfolioList portfolios={this.props.user.portfolios}/>
           <CustomButton
-            buttonAction={() => { this.props.screenProps.navigate('CreatePortfolio')}}
+            buttonAction={() => { this.props.screenProps.navigation.navigate('CreatePortfolio')}}
             buttonText="Create new"
           />
         </View>
@@ -56,4 +56,4 @@ const mapStateToProps = (state) => ({
   portfolios: state.portfolios
 })
 
-export default connect(mapStateToProps)(PortfolioTab)
+export default connect(mapStateToProps)(PortfoliosTab)

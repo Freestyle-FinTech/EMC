@@ -5,7 +5,8 @@ import {
   Text,
   View,
   ImageBackground,
-  Dimensions
+  Dimensions,
+  TouchableOpacity
 } from 'react-native';
 import { Colors } from '../constants/styles';
 
@@ -14,52 +15,62 @@ const MARGIN = 0.12
 const ITEM_WIDTH = (width * (1 - MARGIN))/2
 
 
-export default (props) => {
+const PortfolioItem = (props) => {
   let itemWidth = props.width || ITEM_WIDTH 
-  return <ImageBackground
-    style={{
-      backgroundColor: Colors.appGrey,
-      borderRadius: 10, 
-      width: itemWidth, 
-      height: itemWidth,
-      marginLeft: props.marginLeft || (MARGIN * 100)/3 + '%',
-      marginTop: 10,
-      marginBottom: 10,
-      flexDirection: 'column',
-      justifyContent: 'center',
-      shadowColor: "#000000",
-      shadowOpacity: 0.8,
-      shadowRadius: 2,
-      shadowOffset: {
-        height: 1,
-        width: 0
-      }
-    }}
-    imageStyle={{borderRadius: 10}}
-    source={{uri: props.asset.imgUrl}}>
-  >
-    <View 
-      style={{backgroundColor: "white", height: itemWidth/3, padding: 5}}>
-      <Text style={styles.name}>
-        {props.asset.name}
-      </Text>
-      {itemWidth >= 150 ? 
-        <View style={{justifyContent: "flex-start", flexDirection: "row"}}>
-          <Text style={[styles.price, {color: props.asset.priceChange > 0 ? Colors.appGreen : Colors.appPurple}]}>
-            ${props.asset.worth}
-          </Text>
-          <View style={[styles.priceBox, {backgroundColor: props.asset.priceChange > 0 ? Colors.appGreen : Colors.appPurple}]}>
-          <Text
-            style={styles.priceChange}>
-            {(props.asset.priceChange > 0 ? '+' : '') + props.asset.priceChange}%
-          </Text>
+  return (
+    <TouchableOpacity onPress={() => props.setSelectedPortfolio(props.asset)}>
+      <ImageBackground
+      style={{
+        backgroundColor: Colors.appGrey,
+        borderRadius: 10, 
+        width: itemWidth, 
+        height: itemWidth,
+        marginLeft: props.marginLeft || (MARGIN * 100)/3 + '%',
+        marginTop: 10,
+        marginBottom: 10,
+        flexDirection: 'column',
+        justifyContent: 'center',
+        shadowColor: "#000000",
+        shadowOpacity: 0.8,
+        shadowRadius: 2,
+        shadowOffset: {
+          height: 1,
+          width: 0
+        }
+      }}
+      imageStyle={{borderRadius: 10}}
+      source={{uri: props.asset.imgUrl}}>
+    >
+      <View 
+        style={{backgroundColor: "white", height: itemWidth/3, padding: 5}}>
+        <Text style={styles.name}>
+          {props.asset.name}
+        </Text>
+        {itemWidth >= 150 ? 
+          <View style={{justifyContent: "flex-start", flexDirection: "row"}}>
+            <Text style={[styles.price, {color: props.asset.priceChange > 0 ? Colors.appGreen : Colors.appPurple}]}>
+              ${props.asset.worth}
+            </Text>
+            <View style={[styles.priceBox, {backgroundColor: props.asset.priceChange > 0 ? Colors.appGreen : Colors.appPurple}]}>
+            <Text
+              style={styles.priceChange}>
+              {(props.asset.priceChange > 0 ? '+' : '') + props.asset.priceChange}%
+            </Text>
+            </View>
           </View>
-        </View>
-        : null
-      }
-    </View>
-  </ImageBackground>
+          : null
+        }
+      </View>
+    </ImageBackground>
+  </TouchableOpacity>
+  )
 }
+
+const mapDispatchToProps = (dispatch) => ({
+  setSelectedPortfolio: (portfolio) => dispatch({type: 'SET_SELECTED_PORTFOLIO', payload: portfolio})
+})
+
+export default connect(null, mapDispatchToProps)(PortfolioItem)
 
 const styles = StyleSheet.create({
   name: {

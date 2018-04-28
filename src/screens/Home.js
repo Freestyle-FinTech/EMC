@@ -14,7 +14,6 @@ import {
   Image
 } from 'react-native';
 
-import PortfolioTab from '../components/PortfolioTab';
 import HomeTabs from '../components/HomeTabs';
 import WithChart from '../components/WithChart';
 import { Colors } from '../constants/styles';
