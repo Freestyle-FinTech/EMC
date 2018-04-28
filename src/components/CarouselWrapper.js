@@ -16,17 +16,19 @@ export default CarouselWrapper = () => (
       animate={false}
       indicatorAtBottom={true}
       indicatorColor="#FFFFFF"
-      indicatorOffset={10}>
-      {/* <View style={[styles.lol, {backgroundColor: "green"}]}>
+      indicatorOffset={0}
+      indicatorSpace={15}
+      indicatorSize={25}>
+      <View style={[styles.lol, {backgroundColor: "green"}]}>
         <ImageBackground
           style={{
             flex: 1
           }}
-          imageStyle={{flex: 1, width: '100%', left: '-50%', borderRadius: 10, resizeMode: 'stretch' }}
+          imageStyle={{flex: 1, width: '100%', left: '-50%', borderRadius: 15, resizeMode: 'stretch' }}
           source={require('../assets/mainImage.png')}
         >
         </ImageBackground>
-      </View> */}
+      </View>
       <View style={[styles.lol, {backgroundColor: "blue"}]}>
         <Text>Reasons for things</Text>
       </View>
