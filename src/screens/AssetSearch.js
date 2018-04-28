@@ -7,10 +7,10 @@ import {
   ScrollView,
   Image,
   TextInput,
-  TouchableOpacity
+  TouchableOpacity,
+  FlatList,
 } from 'react-native';
 import {connect} from 'react-redux';
-
 
 import { Colors } from '../constants/styles'
 import PortfolioList from '../components/PortfolioList'
@@ -18,16 +18,18 @@ import SearchBox from '../components/SearchBox'
 type Props = {};
 
 const ResultItem = ({result}) => (
-  <View style={resultStyles.resultBox}>
-    <View>
-      <Text style={resultStyles.heading}>{result.title}</Text>
-      <Text style={resultStyles.name}>{result.name}</Text>      
+  // debugger
+    <View style={resultStyles.resultBox}>
+      <View>
+        <Text style={resultStyles.heading}>{result.heading}</Text>
+        <Text style={resultStyles.name}>{result.name}</Text>      
+      </View>
+      <View><Text>tiny chart</Text></View>
+      <View>
+        <Text style={resultStyles.price}>{result.priceChange}</Text>
+      </View>    
     </View>
-    <View><Text>tiny chart</Text></View>
-    <View>
-      <Text style={resultStyles.price}>{result.price}</Text>
-    </View>    
-  </View>
+  
 )
 
 const resultStyles = StyleSheet.create({
@@ -73,18 +75,20 @@ class Search extends Component<Props> {
         <View style={{backgroundColor: Colors.appWhite, borderRadius: 15, flex: 1}}>
           <SearchBox/>
           <Text style={{marginTop: 15, marginLeft: 10}}>Top Results</Text>
-          {/* <FlatList
+          <FlatList
             scrollEnabled={true}
-            data={[{title: "SPOT", name: 'Spotify Technology SA', price: '+3.45%'},{title: "TSLA", name: 'Tesla Inc', price: '+0.032%'}]}
-            renderItem={({item}) => <ResultItem result={item} />}
-          /> */}
-          <ResultItem
-            result={{title: "SPOT", name: 'Spotify Technology SA', price: '+3.45%'}}
+            data={this.props.stockResults}
+            // data={[{heading: "SPOT", name: 'Spotify Technology SA', price: '+3.45%'},{heading: "SPOT", name: 'Spotify Technology SA', price: '+3.45%'}]}
+            renderItem={({item}) => <TouchableOpacity
+            onPress={() => {
+              this.props.setSelectedStock(item)
+              this.props.navigation.navigate('BuyAsset')
+            }}><ResultItem result={item}/></TouchableOpacity>}
+            keyExtractor={(item, index) => index.toString()}
           />
-          <Text style={{marginTop: 15, marginLeft: 10}}>Portfolios</Text>          
-          <ScrollView style={{backgroundColor: Colors.appWhite, marginTop: 10}}>
-            <PortfolioList portfolios={this.props.portfolios}/>
-          </ScrollView>
+          {/* <ResultItem
+            result={{title: "SPOT", name: 'Spotify Technology SA', price: '+3.45%'}}
+          /> */}
         </View>
       </View>
     );
@@ -93,9 +97,14 @@ class Search extends Component<Props> {
 
 const mapStateToProps = (state) => ({
   portfolios: state.portfolios,
+  stockResults: state.search.stockResults
 })
 
-export default connect(mapStateToProps)(Search)
+const mapDispatchToProps = (dispatch) => ({
+  setSelectedStock: (stock) => dispatch({type: 'SET_SELECTED_STOCK', payload: stock})
+})
+
+export default connect(mapStateToProps, mapDispatchToProps)(Search)
 
 const styles = StyleSheet.create({
   container: {

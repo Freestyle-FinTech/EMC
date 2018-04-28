@@ -11,6 +11,8 @@ import LeaderBoard from '../screens/LeaderBoard';
 import Login from '../screens/Login';
 import Register from '../screens/Register';
 import CreatePortfolio from '../screens/CreatePortfolio'
+import AssetSearch from '../screens/AssetSearch'
+import BuyAsset from '../screens/BuyAsset'
 
 export const appStack = TabNavigator({
   Settings: { screen: Settings },
@@ -115,24 +117,20 @@ export const AppNavigator = StackNavigator({
   Login: { screen: Login },
   Register: { screen: Register },
   App: { screen: appStack},
-  PortfolioCreate: {screen: CreatePortfolio},
+  CreatePortfolio: {screen: CreatePortfolio},
+  Home: {screen: Home},
+  AssetSearch: {screen: AssetSearch},
+  BuyAsset: {screen: BuyAsset},
+  LeaderBoard: {screen: LeaderBoard},   
 }, {
     headerMode: 'none',
     navigationOptions: {
         headerVisible: false,
     },
     initialRouteName: 'Main',
+    style: {
+      backgroundColor: 'dark-grey'
+    }
 });
 
 export default AppNavigator;
-// const AppWithNavigationState = ({ dispatch, nav }) => (
-//   <AppNavigator
-//     navigation={addNavigationHelpers({ dispatch, state: nav })}
-//   />
-// );
-
-// const mapStateToProps = state => ({
-//   nav: state.nav,
-// });
-  
-// export default connect(mapStateToProps)(AppWithNavigationState);

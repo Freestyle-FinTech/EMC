@@ -3,35 +3,40 @@ import {
   Text,
   View,
   ImageBackground,
-  StyleSheet
+  StyleSheet,
+  Dimensions
 } from "react-native";
 
 import Carousel from 'react-native-carousel';
 
 export default CarouselWrapper = () => (
-  <View style={{flex: 10, borderRadius: 10, marginBottom: 4}}>
+  <View style={{flex: 1}}>
     <Carousel
       styles={styles.carousel}
       animate={false}
       indicatorAtBottom={true}
       indicatorColor="#FFFFFF"
-      indicatorOffset={10}>
-      <View style={{borderRadius: 10, height: '100%', flex: 1}}>
+      indicatorOffset={0}
+      indicatorSpace={15}
+      indicatorSize={25}>
+      <View style={[styles.lol, {backgroundColor: "green"}]}>
         <ImageBackground
           style={{
             flex: 1
           }}
-          imageStyle={{width: '100%', borderRadius: 10, resizeMode: 'stretch' }}
+          imageStyle={{flex: 1, width: '100%', left: '-50%', borderRadius: 15, resizeMode: 'stretch' }}
           source={require('../assets/mainImage.png')}
         >
-          {/* <Text style={{color: 'black', alignSelf: 'flex-end'}}>swipe to learn more</Text> */}
         </ImageBackground>
       </View>
       <View style={[styles.lol, {backgroundColor: "blue"}]}>
         <Text>Reasons for things</Text>
       </View>
-      <View style={[styles.lol, {backgroundColor: "red"}]}>
+      <View style={[styles.lol, {backgroundColor: "purple"}]}>
         <Text>More reasons!!!! Register now!!!!</Text>
+      </View>
+      <View style={[styles.lol, {backgroundColor: "yellow"}]}>
+        <Text>Such app, may wow!!!</Text>
       </View>
     </Carousel>
   </View>
@@ -39,11 +44,11 @@ export default CarouselWrapper = () => (
 
 const styles = StyleSheet.create({
   carousel: {
-    flex: 1,
+    flex: 0.8,
     backgroundColor: "green",
   },
   lol: {
-    flex: 1,
+    width: Dimensions.get('window').width,
     justifyContent: 'center',
     alignItems: 'center',
     borderRadius: 15

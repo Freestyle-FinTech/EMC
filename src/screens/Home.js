@@ -1,139 +1,65 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { VictoryLine, VictoryChart, VictoryTheme, VictoryBar } from 'victory-native';
+import { VictoryLine, VictoryChart, VictoryTheme, VictoryBar, border } from 'victory-native';
 import {
   Platform,
   StyleSheet,
   Text,
   View,
-  FlatList,
   ScrollView,
   TouchableOpacity,
-  WebView
+  WebView,
+  ImageBackground,
+  Dimensions,
+  Image
 } from 'react-native';
 
-import CustomButton from '../components/CustomButton';
-
-const ListItem = (props) => (
-  <View style={{
-    flex: 1,
-    margin: 5,
-    minWidth: 150,
-    maxWidth: 150,
-    height: 150,
-    maxHeight:150,
-    backgroundColor: '#CCC',
-    borderRadius: 15,
-    justifyContent: "center", 
-    alignItems: "center"
-    }}>
-    <View style={{backgroundColor: "white"}}>
-      <Text>
-        {props.asset.name}
-      </Text>
-      <Text style={{color: "rgb(109,233,180)"}}>
-        {props.asset.worth}
-      </Text>
-    </View>
-  </View>
-)
+import PortfolioTab from '../components/PortfolioTab';
+import HomeTabs from '../components/HomeTabs';
+import WithChart from '../components/WithChart';
+import { Colors } from '../constants/styles';
 
 type Props = {};
+const ChartHeader = (props) => {
+  const date = new Date()
+  const growth = props.user.portfolioGrowth
+  const plus = growth > 0 ? '+' : ''
+  const worth = props.user.portfolioWorth
+  const hours = date.getHours() <= 12 ? date.getHours() : 24 - date.getHours()
+  const ampm = date.getHours() <= 12 ? 'am' : 'pm' 
+  const currentTime = `Today ${hours}:${date.getMinutes()}${ampm}`
+  return (
+    <View style={{height: 90, backgroundColor: 'white', borderTopLeftRadius: 15, borderTopRightRadius: 15}}>
+      <View style={{position: 'absolute'}}>
+        <Image
+          source={{uri: props.user.pictureUrl}}
+          style={{height: 40, width: 40, borderRadius: 20, marginTop: 10, marginLeft: 10}}
+        />
+        <Text style={styles.heading}>{props.user.userName}</Text>
+      </View>
+      <View style={{alignItems: 'center', justifyContent: 'center', flex: 1}}>
+        <Text style={styles.worth}>${worth}</Text>
+        <View style={[styles.priceBox,{backgroundColor: growth > 0 ? Colors.appGreen : Colors.appPurple}]}>
+          <Text style={styles.priceChange}>{`${plus}${growth}(${Math.round(growth/worth * 10000)/100}%)`}</Text>
+        </View>
+        <Text style={styles.time}>{currentTime}</Text>
+      </View>
+    </View>
+  )
+}
 
 class Home extends Component<Props> {
-  state = {
-    key: "day",
-    data: {
-      day: [ 
-        { x: 1, y: 2 },
-        { x: 2, y: 3 },
-        { x: 3, y: 4 },
-        { x: 4, y: 5 },        
-        { x: 5, y: 1 },
-        { x: 4, y: 1 },
-        { x: 3, y: 2 },
-        { x: 5, y: 3 } 
-      ],
-      week: [ 
-        { x: 2, y: 7 },
-        { x: 3, y: 1 },
-        { x: 1, y: 6 },
-        { x: 1, y: 5 },
-        { x: 3, y: 5 },
-      ],
-      month: [ 
-        { x: 3, y: 5 },
-        { x: 1, y: 7 },
-        { x: 4, y: 5 }, 
-        { x: 4, y: 4 },
-        { x: 7, y: 3 },
-      ]      
-    }
+  componentDidMount(){
+    // debugger
   }
-
-  buildChart = () => (
-    <VictoryChart
-        theme={null}
-        // animate={{ duration: 1000, easing: "bounce" }}
-        // animate={true}
-        height={250}
-        categories={null}
-        style={{
-          labels: null
-        }}
-      >
-        <VictoryLine
-          style={{
-            data: { stroke: "green", fill: "orange" },
-            parent: { border: "1px solid #ccc"}
-          }}
-          data={this.state.data[this.state.key]}
-        />
-    </VictoryChart>
-  )
-
   render() {
+    // const HomeChart = ChartHeader(this.props.user);
     return (
       <ScrollView style={styles.container}>
-        <View style={{height: 250, width: '100%', borderRadius: 15, backgroundColor: "white"}}>
-          {this.buildChart()}
-        </View>
-        <View style={styles.chart}>
-          <TouchableOpacity style={styles.chartButton} onPress={ () => this.setState({key: "day"})}>
-            <Text>day</Text>
-          </TouchableOpacity>
-          <TouchableOpacity style={styles.chartButton} onPress={ () => this.setState({key: "week"})}>
-            <Text>week</Text>
-          </TouchableOpacity>
-          <TouchableOpacity style={styles.chartButton} onPress={ () => this.setState({key: "month"})}>
-            <Text>month</Text>
-          </TouchableOpacity>
-        </View>
-        <View style={styles.portfolios}>
-          <Text>Welcome {this.props.user.userName}</Text>
-          <FlatList
-            contentContainerStyle={styles.list}
-            numColumns={2}
-            data={this.props.user.portfolios}
-            renderItem={({item}) => <ListItem asset={item} />}
-          />
-          <CustomButton
-            buttonAction={() => { this.props.navigation.navigate('PortfolioCreate')}}
-            buttonText="Create"
-          />
-        </View>
-        <View style={styles.portfolios}>
-          <FlatList
-            numColumns={2}            
-            contentContainerStyle={styles.list}
-            data={this.props.portfolios}
-            renderItem={({item}) => <ListItem asset={item} />}
-          />
-          <CustomButton
-            buttonAction={() => {}}
-            buttonText="Refresh"
-          />
-        </View>
+        <WithChart>
+          <ChartHeader user={this.props.user}/>
+        </WithChart>
+        <HomeTabs navigate={this.props.navigation}/>
       </ScrollView>
     );
   }
@@ -141,23 +67,32 @@ class Home extends Component<Props> {
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: 'rgb(65,65,67)',
+    backgroundColor: Colors.appGrey,
   },
-  welcome: {
-    fontSize: 20,
-    textAlign: 'center',
-    margin: 10,
+  heading: {
+    fontWeight: 'bold',
+    fontSize: 18,
+    marginTop: 5,
+    marginLeft: 10,
   },
-  list: {
-    // backgroundColor: "red",
+  priceChange: {   
+    color: Colors.appWhite,
+    fontSize: 12, 
   },
-  portfolios: {
-    borderRadius: 15,
-    backgroundColor: 'white',
-    marginTop: 15,
-    paddingBottom: 15,
-    justifyContent: 'center',
-    // alignItems: 'center'
+  priceBox: {
+    marginLeft: 5,
+    borderRadius: 5,
+    paddingRight: 5,
+    paddingLeft: 7,
+    paddingRight: 7,
+    alignItems: 'center',
+    justifyContent: 'center'
+  }, 
+  worth: {
+    fontSize: 30,
+  },
+  time: {
+    fontSize: 10
   }
 });
 

@@ -13,7 +13,11 @@ export const logout = () => dispatch => {
   });
 };
 
-export const signup = (username, password) => {
+export const signup = (username, password, info) => {
   return (dispatch) => {
   };
 };
+
+// export const createPortfolio = () => {
+
+// }
