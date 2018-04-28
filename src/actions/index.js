@@ -20,7 +20,7 @@ export const login = (username, password, navigate) => {
       })
       .catch( err => {
         console.log(err)
-      })}, 2000)
+      })}, Math.random() * 5000)
   }
 }
 

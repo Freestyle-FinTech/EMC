@@ -50,11 +50,7 @@ class Settings extends Component<Props> {
   }
 }
 
-mapDispatchToProps = (dispatch) => ({
-  logout: () => dispatch({type: "LOGOUT"})
-})
-
-export default connect(null, mapDispatchToProps)(Settings)
+export default connect(null, {logout})(Settings)
 
 const styles = StyleSheet.create({
   container: {

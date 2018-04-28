@@ -148,7 +148,7 @@ class Chart extends Component<Props> {
         <View style={{backgroundColor: "white", borderBottomLeftRadius: 15, borderBottomRightRadius: 15, height: 190}}>
           <VictoryChart
             theme={null}
-            animate={{easing: 'cubicInOut', duration: 500}}
+            animate={{easing: 'cubicInOut', duration: 500, onLoad: { duration: 0 }}}
             categories={null}
             labels={null}
             padding={0}
@@ -187,13 +187,19 @@ class Chart extends Component<Props> {
             <VictoryAxis tickFormat={() => ''} style={{ axis: {stroke: "none"} }} />
           </VictoryChart>
           <View style={{height: 60, flexDirection: 'row', justifyContent: 'space-around', alignItems: 'center'}}>
-            <Image 
-              style={{height: 25, width: 25, }}
-              source={{uri: "https://www.zellepay.com/sites/default/files/2017-07/HIW_Step3.png"}}/>
-            <Image
-              style={{height: 25, width: 25, }}
-              source={{uri: "https://www.zellepay.com/sites/default/files/2017-07/HIW_Step3.png"}}/>
-            />
+            <TouchableOpacity
+              onPress={() => console.log('show feed stuff')}
+            >
+              <Image
+                style={{height: 25, width: 25, }}
+                source={{uri: "https://www.zellepay.com/sites/default/files/2017-07/HIW_Step3.png"}}/>
+            </TouchableOpacity>
+            <TouchableOpacity>
+              <Image
+                style={{height: 25, width: 25, }}
+                source={{uri: "https://www.zellepay.com/sites/default/files/2017-07/HIW_Step3.png"}}/>
+              />
+            </TouchableOpacity>
           </View>
         </View>
         <View style={styles.chart}>

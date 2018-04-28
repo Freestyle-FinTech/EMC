@@ -32,7 +32,13 @@ class Login extends Component<Props> {
 
   render() {
     if (this.props.loading){
-      return <View style={styles.container}><Text>loading...</Text></View>
+      return (
+        <View style={styles.container}>
+          <Image 
+            style={{height: 350, width: 350, resizeMode: 'cover'}}
+            source={{uri: 'https://i.redd.it/ounq1mw5kdxy.gif'}}/>
+        </View>
+      )
     } else {
       return (
         <View style={{flex: 1, backgroundColor: Colors.appGrey}}>
@@ -95,6 +101,10 @@ const mapStateToProps = state => ({
   error: state.user.error,
   loading: state.user.loading,  
 })
+
+// const mapDispatchToProps = (dispatch) => ({
+//   login: (username, password, navigate) => dispatch(login(username, password, navigate))
+// })
 
 export default connect(mapStateToProps, {login})(Login)
 

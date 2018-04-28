@@ -44,44 +44,10 @@
               "name": "BitCoin"
             }
           ]
-        },
-        {
-          "name": "Test",
-          "imgUrl": "https://dmi3w0goirzgw.cloudfront.net/gallery-images/840x560/406000/600/406638.jpg",
-          "creator": {},
-          "worth": 29.56,
-          "priceChange": 1
-        },
-        {
-          "name": "Hello",
-          "imgUrl": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQpmduMiNc-E9hkuApAJ8XnQVD1Sbexj3Xhq3kShwZC9hckWSRwOg",
-          "creator": {},
-          "worth": 29.56,
-          "priceChange": 1
-        },
-        {
-          "name": "Koklklhkkhmv j",
-          "imgUrl": "https://images.pexels.com/photos/531880/pexels-photo-531880.jpeg?auto=compress&cs=tinysrgb&h=350",
-          "creator": {},
-          "worth": 29.56,
-          "priceChange": 1
-        },
-        {
-          "name": "Koklklhkkhmv j",
-          "imgUrl": "https://images.pexels.com/photos/531880/pexels-photo-531880.jpeg?auto=compress&cs=tinysrgb&h=350",
-          "creator": {},
-          "worth": 29.56,
-          "priceChange": 1
-        },
-        {
-          "name": "Nhfghn",
-          "imgUrl": "https://images.pexels.com/photos/531880/pexels-photo-531880.jpeg?auto=compress&cs=tinysrgb&h=350",
-          "creator": {},
-          "worth": 29.56,
-          "priceChange": 1
         }
       ],
-      "isLoggedIn": true
+      "isLoggedIn": true,
+      "loading": false
     },
     {
       "userName": "Arash Asady",
