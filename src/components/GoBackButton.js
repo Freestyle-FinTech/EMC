@@ -1,10 +1,11 @@
 import React from 'react';
+import { NavigationActions } from 'react-navigation';
 
 import {Image, TouchableOpacity} from 'react-native';
 
-export default (props) => (
+export default ({navigation}) => (
   <TouchableOpacity
-    onPress={ () => props.props.navigate('Main')}
+    onPress={ () => navigation.goBack()}
     style={{
       position: 'absolute',
       top: 30,

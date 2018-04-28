@@ -19,7 +19,7 @@ export default class Register extends Component<Props> {
   render() {
     return (
       <View style={styles.container}>
-        <GoBackButton props={this.props.navigation}/>
+        <GoBackButton navigation={this.props.navigation}/>
         <Text style={styles.welcome}>
           Register
         </Text>

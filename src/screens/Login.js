@@ -52,7 +52,7 @@ class Login extends Component<Props> {
     return (
       <View style={{flex: 1, backgroundColor: Colors.appGrey}}>
         <KeyboardAvoidingView style={styles.container} behavior="padding" enabled>
-          <GoBackButton props={this.props.navigation}/>
+          <GoBackButton navigation={this.props.navigation}/>
           <Image
             style={{
               width: 100,

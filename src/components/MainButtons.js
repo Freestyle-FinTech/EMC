@@ -30,9 +30,8 @@ const styles = StyleSheet.create({
     marginTop: 10,
     paddingTop: 10,
     backgroundColor: 'white',
-    borderRadius: 10,
+    borderRadius: 15,
     flex: 0.2,
-    alignItems: "center",
     justifyContent: "space-around"
   },
   loginButton: {
