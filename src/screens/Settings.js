@@ -6,9 +6,9 @@ import {
   View,
   TouchableOpacity
 } from 'react-native';
-import {connect, dispatch} from 'react-redux'
+import { connect, dispatch } from 'react-redux'
 
-import { logout } from '../actions/auth'
+import { logout } from '../actions/index'
 
 import CustomButton from '../components/CustomButton'
 import { Colors } from '../constants/styles'

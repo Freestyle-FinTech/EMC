@@ -10,8 +10,8 @@ import {
   Image
 } from 'react-native';
 
-import {connect, dispatch} from 'react-redux';
-import {login} from '../actions/auth';
+import { connect, dispatch } from 'react-redux';
+import { login } from '../actions/index';
 import axios from "axios";
 
 import GoBackButton from '../components/GoBackButton';
@@ -26,91 +26,77 @@ class Login extends Component<Props> {
   }
 
   onLoginPress = () => {
-    axios.get("http://localhost:3000/users")
-      .then(response => {
-        let user = response.data.find( user => user.userName === this.state.username && user.password === this.state.password)
-        if(user) {
-          console.log(this.props)
-          this.props.login(user)
-          // debugger
-          this.props.navigation.navigate("App")
-        } else {
-          // console.log('I worked')
-          // console.log(this)          
-          // debugger
-          this.setState({
-            error: true
-          })
-        }
-      })
-      .catch( err => {
-        console.log(err)
-      })
+    let {username, password} = this.state
+    this.props.login(username, password, this.props.navigation.navigate)
   }
 
   render() {
-    return (
-      <View style={{flex: 1, backgroundColor: Colors.appGrey}}>
-        <KeyboardAvoidingView style={styles.container} behavior="padding" enabled>
-          <GoBackButton navigation={this.props.navigation}/>
-          <Image
-            style={{
-              width: 100,
-              height: 100
-            }}
-            source={require('../assets/emcee-icon.png')}
-          />
-          <Text style={{color: 'red', fontSize: 12}}>{this.state.error ? "username or password don't match" : null}</Text>
-          <View>
-            <View style={styles.inputBox}>
-              <Image
-                style={styles.inputImage}
-                source={{uri: "https://cdn3.iconfinder.com/data/icons/sympletts-part-3/128/circle-user-man-512.png"}}
-              />
-              <TextInput
-                placeholder="Username"
-                onChangeText={ username => this.setState({username})}
-                value={this.state.username}
-                underlineColorAndroid='rgba(0,0,0,0)'
-                style={styles.input}/>
+    if (this.props.loading){
+      return <View style={styles.container}><Text>loading...</Text></View>
+    } else {
+      return (
+        <View style={{flex: 1, backgroundColor: Colors.appGrey}}>
+          <KeyboardAvoidingView style={styles.container} behavior="padding" enabled>
+            <GoBackButton navigation={this.props.navigation}/>
+            <Image
+              style={{
+                width: 100,
+                height: 100
+              }}
+              source={require('../assets/emcee-icon.png')}
+            />
+            <Text style={{color: 'red', fontSize: 12}}>{this.props.error ? "username or password don't match" : null}</Text>
+            <View>
+              <View style={styles.inputBox}>
+                <Image
+                  style={styles.inputImage}
+                  source={{uri: "https://cdn3.iconfinder.com/data/icons/sympletts-part-3/128/circle-user-man-512.png"}}
+                />
+                <TextInput
+                  placeholder="Username"
+                  onChangeText={ username => this.setState({username})}
+                  value={this.state.username}
+                  underlineColorAndroid='rgba(0,0,0,0)'
+                  style={styles.input}/>
+              </View>
+              <View style={styles.inputBox}>
+                <Image
+                  style={styles.inputImage}
+                  source={{uri: "https://cdn1.iconfinder.com/data/icons/circle-outlines/512/Lock_Locked_Password_Protected_Secure_Safe_Security-512.png"}}
+                />
+                <TextInput
+                  placeholder="Password"          
+                  onChangeText={ password => this.setState({password})}
+                  value={this.state.password}     
+                  style={styles.input} 
+                  secureTextEntry={true}
+                  underlineColorAndroid='rgba(0,0,0,0)'/>
+              </View>
             </View>
-            <View style={styles.inputBox}>
-              <Image
-                style={styles.inputImage}
-                source={{uri: "https://cdn1.iconfinder.com/data/icons/circle-outlines/512/Lock_Locked_Password_Protected_Secure_Safe_Security-512.png"}}
-              />
-              <TextInput
-                placeholder="Password"          
-                onChangeText={ password => this.setState({password})}
-                value={this.state.password}     
-                style={styles.input} 
-                secureTextEntry={true}
-                underlineColorAndroid='rgba(0,0,0,0)'/>
-            </View>
-          </View>
-          <TouchableOpacity
-            style={{marginTop: 20}}
-            onPress={() => this.props.navigation.navigate("App")}
-            >
-            <Text>Forgot your username/password?</Text>
-          </TouchableOpacity>
-          <TouchableOpacity 
-            onPress={this.onLoginPress}
-            style={styles.button}>
-            <Text style={{fontSize: 20, color: 'white', textAlign: 'center' }}>Log in</Text>
-          </TouchableOpacity>
-        </KeyboardAvoidingView>
-      </View>
-    );
+            <TouchableOpacity
+              style={{marginTop: 20}}
+              onPress={() => this.props.navigation.navigate("App")}
+              >
+              <Text>Forgot your username/password?</Text>
+            </TouchableOpacity>
+            <TouchableOpacity 
+              onPress={this.onLoginPress}
+              style={styles.button}>
+              <Text style={{fontSize: 20, color: 'white', textAlign: 'center' }}>Log in</Text>
+            </TouchableOpacity>
+          </KeyboardAvoidingView>
+        </View>
+      );
+    }
   }
 }
 
-dispatchMapToProps = (dispatch) => ({
-  login: (user) => dispatch({type: "LOGIN", payload: user})
-  // login
+const mapStateToProps = state => ({
+  error: state.user.error,
+  loading: state.user.loading,  
 })
 
-export default connect(null, dispatchMapToProps)(Login)
+export default connect(mapStateToProps, {login})(Login)
 
 const styles = StyleSheet.create({
   container: {

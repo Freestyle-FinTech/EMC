@@ -44,7 +44,9 @@ const initialState = {
       ]
     }
   ],
-  "isLoggedIn": true
+  "isLoggedIn": true,
+  "error": false,
+  "loading": false
 }
 
 const user = (state = initialState, action) => {
@@ -53,7 +55,12 @@ const user = (state = initialState, action) => {
     case 'LOGIN': 
       return { ...action.payload, 
           isLoggedIn: true,
+          loading: false
       }
+    case 'LOGIN_ERROR': 
+      return {...state, error: true, loading: false}
+    case 'LOADING':
+      return {...state, loading: true}
     case 'LOGOUT':
       // debugger
       return state
