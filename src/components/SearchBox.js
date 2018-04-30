@@ -12,6 +12,7 @@ import {
 import {connect, dispatch} from 'react-redux';
 import { Colors } from '../constants/styles';
 import axios from 'axios';
+import InputWithIcon from './InputWithIcon';
 
 class SearchBox extends Component {
   state = {
@@ -31,28 +32,20 @@ class SearchBox extends Component {
         this.props.setSearchResults(results)
       })
       .catch( err => console.log(err))
-    this.setState({searchQuery})      
+    // this.setState({searchQuery})      
   }
 
   render(){
     return(
       <View style={styles.searchBox}>
         <Text style={styles.heading}>Search</Text>
-        <View style={styles.inputBox}>
-          <TouchableOpacity
-            onPress={this.onSearchClicked}>
-            <Image
-              style={styles.inputImage}
-              source={{uri: "https://cdn2.iconfinder.com/data/icons/lightly-icons/30/search-480.png"}}
-            />
-          </TouchableOpacity>
-          <TextInput
-            placeholder="stock name"          
-            onChangeText={this.onSearchClicked}
-            value={this.state.searchQuery}  
-            style={styles.input}
-            underlineColorAndroid='rgba(0,0,0,1)'/>
-        </View>
+        <InputWithIcon
+          iconUrl="https://cdn2.iconfinder.com/data/icons/lightly-icons/30/search-480.png"
+          placeholder="Search any ticker, industry, name, etc."
+          inputValue={this.state.searchQuery}
+          onInputChange={searchQuery => this.setState({searchQuery})}
+          onSubmitEditing={this.onSearchClicked}
+        />
       </View>
     )
   }

@@ -6,7 +6,7 @@ import {
   Image
 } from 'react-native';
 
-export default InputWithIcon = ({placeholder, iconUrl, onInputChange, inputValue}) => (
+export default InputWithIcon = ({onSubmitEditing, placeholder, iconUrl, onInputChange, inputValue, secureTextEntry}) => (
   <View style={styles.inputBox}>
     <Image
       style={styles.inputImage}
@@ -17,7 +17,9 @@ export default InputWithIcon = ({placeholder, iconUrl, onInputChange, inputValue
       onChangeText={onInputChange}
       value={inputValue}
       underlineColorAndroid='rgba(0,0,0,0)'
-      style={styles.input}/>
+      style={styles.input}
+      onSubmitEditing={onSubmitEditing}
+      secureTextEntry={secureTextEntry}/>
   </View>
 )
 
