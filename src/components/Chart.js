@@ -9,23 +9,9 @@ import {
   Image
 } from 'react-native';
 import { Colors } from '../constants/styles';
+import CustomButton from './CustomButton';
 
-const ChartButton = ({ buttonText, buttonAction, buttonActive }) => (
-  <TouchableOpacity 
-    style={styles.chartButton} 
-    onPress={buttonAction}
-    style={{backgroundColor: (buttonActive ? Colors.appGreen : 'white'), borderRadius: 3, justifyContent: 'center'}}>
-    <Text
-      style={{color: (buttonActive ? 'white' : Colors.appGreen), fontWeight: 'bold', fontSize: 16, paddingLeft: 7, paddingRight: 7}}
-    >
-      {buttonText}
-    </Text>
-  </TouchableOpacity>
-)
-
-type Props = {};
-
-class Chart extends Component<Props> {
+class Chart extends Component {
   state = {
     key: "1D",
     data: {
@@ -121,25 +107,25 @@ class Chart extends Component<Props> {
     },
     "ALL": {
       "prices": [ 
-      { x: 3, y: 5 },
-      { x: 1, y: 7 },
-      { x: 4, y: 5 }, 
-      { x: 7, y: 3 },
-      { x: 4, y: 2 },
-      { x: 1, y: 6 },
-      { x: 4, y: 2 },
-      { x: 4, y: 4 },
-      { x: 3, y: 1 },
-      { x: 3, y: 1 },
-      { x: 1, y: 6 },
-      { x: 7, y: 3 },
-      { x: 1, y: 5 },
-    ],
-    "high": [{x:1, y:1},{x: 7, y: 1}],
-    "low": [{x: 1, y: 7}, {x: 7, y: 7}],
-    "closing": [{x:1, y: 5},{x:7, y:5}]      
-  }
-  }
+        { x: 3, y: 5 },
+        { x: 1, y: 7 },
+        { x: 4, y: 5 }, 
+        { x: 7, y: 3 },
+        { x: 4, y: 2 },
+        { x: 1, y: 6 },
+        { x: 4, y: 2 },
+        { x: 4, y: 4 },
+        { x: 3, y: 1 },
+        { x: 3, y: 1 },
+        { x: 1, y: 6 },
+        { x: 7, y: 3 },
+        { x: 1, y: 5 },
+      ],
+      "high": [{x:1, y:1},{x: 7, y: 1}],
+      "low": [{x: 1, y: 7}, {x: 7, y: 7}],
+      "closing": [{x:1, y: 5},{x:7, y:5}]      
+      }
+    }
   }
 
   render(){
@@ -178,7 +164,7 @@ class Chart extends Component<Props> {
             />
             <VictoryLine
               style={{
-                data: { stroke: "black", strokeDasharray: "10,10", strokeWidth: 1 }
+                data: { stroke: "black", strokeDasharray: "10,10", strokeWidth: 2 }
               }}
               labelComponent={<Text style={{fontSize: 10, color: 'red'}}>closing $1</Text>}
               labels={['closing $1']}            
@@ -204,12 +190,13 @@ class Chart extends Component<Props> {
         </View>
         <View style={styles.chart}>
         {['1D', '1W', '1M', '3M', '1Y', 'ALL'].map( buttonText => (
-          <ChartButton
-            key={buttonText}
+          <CustomButton
+            key={buttonText}            
             buttonText={buttonText} 
             buttonAction={() => this.setState({key: buttonText})}
-            buttonActive={this.state.key === buttonText}
-            />
+            buttonStyles={{width: 32, height: 20, backgroundColor: (this.state.key === buttonText ? Colors.appGreen : 'white'), borderRadius: 2, justifyContent: 'center'}}
+            textStyles={{color: (this.state.key === buttonText ? 'white' : Colors.appGreen), fontWeight: 'bold', fontSize: 16}}
+          />
         ))}
         </View>
       </View>
