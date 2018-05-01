@@ -12,11 +12,12 @@ import {
 } from 'react-native';
 import {connect} from 'react-redux';
 
-import { Colors } from '../constants/styles'
 import GoBackButton from '../components/GoBackButton';
 import PortfolioItem from '../components/PortfolioItem';
 import CustomButton from '../components/CustomButton';
 
+import { Colors } from '../constants/styles';
+import { buyAsset } from '../actions/index';
 type Props = {};
 
 class Search extends Component<Props> {
@@ -26,8 +27,8 @@ class Search extends Component<Props> {
   }
   
   placeOrderHandler = () => {
-    // make axios call to server
-    this.props.buyAsset(this.props.selectedStock)
+    debugger
+    this.props.buyAsset(this.state.investmentValue, this.state.numberOfShares)
     this.props.navigation.navigate('App')
   }
 
@@ -38,9 +39,13 @@ class Search extends Component<Props> {
           <GoBackButton navigation={this.props.navigation}/>
           {this.props.selectedPortfolio
           ? 
-            <PortfolioItem asset={this.props.selectedPortfolio} width={100}/>
+            <PortfolioItem asset={this.props.selectedPortfolio} navigate={() => this.props.navigation.navigate('ChoosePortfolio')} width={100}/>
           :
-            <CustomButton buttonText='Select portfolio' textStyles={{color: 'white'}} buttonStyles={{ marginTop: 60, width: 180, height: 50, borderRadius: 25, backgroundColor: Colors.appGreen}} />
+            <CustomButton 
+              buttonText='Select portfolio'
+              textStyles={{color: 'white'}} 
+              buttonStyles={{ marginTop: 60, width: 180, height: 50, borderRadius: 25, backgroundColor: Colors.appGreen}}
+              buttonAction={() => this.props.navigation.navigate('ChoosePortfolio')}/>
           }
           <View style={{alignItems: 'center'}}>
             <Text>{this.props.selectedStock.heading}</Text>
@@ -88,11 +93,11 @@ const mapStateToProps = (state) => ({
   selectedStock: state.search.selectedStock
 })
 
-const mapDispatchToProps = (dispatch) => ({
-  buyAsset: (asset) => dispatch({type: 'ADD_ASSET_TO_PORTFOLIO', payload: asset}) 
-})
+// const mapDispatchToProps = (dispatch) => ({
+//   buyAsset: (asset) => dispatch({type: 'ADD_ASSET_TO_PORTFOLIO', payload: asset})
+// })
 
-export default connect(mapStateToProps, mapDispatchToProps)(Search)
+export default connect(mapStateToProps, { buyAsset })(Search)
 
 const styles = StyleSheet.create({
   container: {

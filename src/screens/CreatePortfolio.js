@@ -16,7 +16,7 @@ import {
 import axios from 'axios';
 import { dispatch, connect } from 'react-redux';
 import { Colors } from '../constants/styles';
-
+import { createPortfolio } from '../actions/index' 
 import CustomButton from '../components/CustomButton';
 import GoBackButton from '../components/GoBackButton';
 
@@ -46,7 +46,7 @@ class CreatePortfolio extends Component<Props> {
           </ImageBackground>
           <CustomButton
             buttonText="Create"
-            buttonAction={() => this.props.createNewPortfolo({name: this.state.name, imgUrl: this.state.imageUrl}, this.props.user, this.props.navigation.navigate)}
+            buttonAction={() => this.props.createPortfolio({name: this.state.name, imgUrl: this.state.imageUrl}, this.props.navigation.navigate)}
           />
           <ScrollView style={{marginTop: 10}}>
           <FlatList
@@ -82,38 +82,11 @@ mapStateToProps = (state) => ({
   user: state.user
 }) 
 
-mapDispatchToProps = (dispatch) => ({
-  createNewPortfolo: (newPortfolio, user, navigate) => {
-    // debugger
-    let hello = {...newPortfolio,
-      "creator": {
-        "username": user.username,
-        "name": user.name,
-        "portfolioUrl": user.portfolioUrl
-      },
-      "worth": 29.56,
-      "priceChange": Math.round(Math.random()/100) * 100 + 1
-    }
-    user.portfolios = [...user.portfolios, hello]
-    
-    axios({
-      url: `http://localhost:3000/users/${user.id}`,
-      data: user,
-      method: "PUT",
-      headers: {
-        'Content-Type': 'application/json'
-      }
-    }).then( res => {
-      // debugger
-      dispatch({type: 'CREATE_PORTFOLIO', payload: newPortfolio})
-      navigate('AssetSearch')
-    }).catch( err => {
-      console.log(err)
-    })
-  }
-})
+// mapDispatchToProps = (dispatch) => ({
+//   createNewPortfolo: 
+// })
 
-export default connect(mapStateToProps, mapDispatchToProps)(CreatePortfolio)
+export default connect(mapStateToProps, {createPortfolio})(CreatePortfolio)
 
 const {height, width} = Dimensions.get('window');
 

@@ -15,11 +15,11 @@ import {connect} from 'react-redux';
 import { Colors } from '../constants/styles'
 import PortfolioList from '../components/PortfolioList'
 import SearchBox from '../components/SearchBox'
+import GoBackButton from '../components/GoBackButton';
 type Props = {};
 
-const ResultItem = ({result}) => (
-  // debugger
-    <View style={resultStyles.resultBox}>
+const ResultItem = ({result}) => {
+    return(<View style={resultStyles.resultBox}>
       <View>
         <Text style={resultStyles.heading}>{result.heading}</Text>
         <Text style={resultStyles.name}>{result.name}</Text>      
@@ -29,8 +29,8 @@ const ResultItem = ({result}) => (
         <Text style={resultStyles.price}>{result.priceChange}</Text>
       </View>    
     </View>
-  
-)
+    )
+  }
 
 const resultStyles = StyleSheet.create({
   resultBox: {
@@ -68,12 +68,13 @@ const resultStyles = StyleSheet.create({
   }
 })
 
-class Search extends Component<Props> {
+class AssetSearch extends Component<Props> {
   render() {
     return (
       <View style={styles.container}>
         <View style={{backgroundColor: Colors.appWhite, borderRadius: 15, flex: 1}}>
           <SearchBox/>
+          <GoBackButton navigation={this.props.navigation}/>
           <Text style={{marginTop: 15, marginLeft: 10}}>Top Results</Text>
           <FlatList
             scrollEnabled={true}
@@ -104,7 +105,7 @@ const mapDispatchToProps = (dispatch) => ({
   setSelectedStock: (stock) => dispatch({type: 'SET_SELECTED_STOCK', payload: stock})
 })
 
-export default connect(mapStateToProps, mapDispatchToProps)(Search)
+export default connect(mapStateToProps, mapDispatchToProps)(AssetSearch)
 
 const styles = StyleSheet.create({
   container: {

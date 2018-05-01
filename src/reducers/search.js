@@ -21,6 +21,15 @@ export default stuff = (state = initialState, action) => {
       console.log('set selected stock')
       // debugger
       return { ...state, selectedStock: action.payload}
+    case 'ADD_ASSET_TO_PORTFOLIO':
+      console.log('clear selected stock on adding asset to portfolio')      
+      return {...state, selectedStock: null}
+    case 'CLEAR_SELECTED_PORTFOLIO':
+      console.log('clear selected porfolio')      
+      return {...state, selectedPortfolio: null}
+    case 'CLEAR_SELECTED_STOCK':
+      console.log('clear selected stock')
+      return {...state, selectedStock: null}
     default:
       return state;
   }

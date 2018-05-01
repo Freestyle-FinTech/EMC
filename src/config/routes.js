@@ -1,6 +1,12 @@
 import React from 'react';
-import {Image} from 'react-native';
-import { addNavigationHelpers, StackNavigator, TabNavigator, TabBarBottom } from 'react-navigation';
+import { Image, View, Text } from 'react-native';
+import { 
+  addNavigationHelpers, 
+  StackNavigator, 
+  TabNavigator, 
+  TabBarBottom 
+} from 'react-navigation';
+
 import { connect } from 'react-redux';
 import Main from '../screens/Main';
 import Home from '../screens/Home';
@@ -10,9 +16,79 @@ import Search from '../screens/Search';
 import LeaderBoard from '../screens/LeaderBoard';
 import Login from '../screens/Login';
 import Register from '../screens/Register';
-import CreatePortfolio from '../screens/CreatePortfolio'
-import AssetSearch from '../screens/AssetSearch'
+import CreatePortfolio from '../screens/CreatePortfolio';
+import AssetSearch from '../screens/AssetSearch';
 import BuyAsset from '../screens/BuyAsset'
+import ChoosePortfolio from '../screens/ChoosePortfolio';
+
+import UserInfo from '../components/UserInfo';
+import Feed from '../components/Feed';
+import PortfoliosTab from '../components/PortfoliosTab';
+import PortfolioTab from '../components/PortfolioTab';
+import AssetTab from '../components/AssetTab';
+
+export const UserScreens = {
+  'Info': {screen: UserInfo},
+  'Portfolios': {screen: PortfoliosTab},
+  'Feed': {screen: Feed},
+}
+
+export const PortfolioScreens = {
+  'Info': {screen: UserInfo},
+  'Assets': {screen: PortfolioTab},
+  'Feed': {screen: Feed},
+}
+
+export const AssetScreens = {
+  'Info': {screen: UserInfo},
+  'Stats': {screen: AssetTab},
+  'Feed': {screen: Feed},
+}
+
+export const HomeTabsRouter = (screens) => (
+  TabNavigator(screens,{
+    navigationOptions: ({ navigation }) => ({
+      tabBarIcon: ({ focused, tintColor }) => {
+        const { routeName } = navigation.state;
+        return(
+          <View style={focused ? {borderBottomColor: 'black', borderBottomWidth: 2} : null}>
+            <Text
+              style={{
+                paddingLeft: 15, paddingRight: 15,
+                fontSize: focused ? 21 : 18,
+                fontWeight: 'bold',
+              }}>
+              {routeName}
+            </Text>
+          </View>
+        )
+      }
+    }),
+    tabBarPosition: 'top',
+    tabBarOptions: {
+      style: {
+        height: 40,
+        borderRadius: 15,
+        shadowColor: '#000000',
+        shadowOffset: {
+          width: 0,
+          height: 2
+        },
+        shadowRadius: 4,
+        shadowOpacity: 1.0,
+        backgroundColor: 'white',
+      },
+      indicatorStyle: {
+        borderBottomColor: 'red',
+        borderBottomWidth: 2,
+      },
+      showLabel: false,
+    },
+    swipeEnabled: true,
+    lazy: true,
+    initialRouteName: Object.keys(screens)[1],    
+  })
+)
 
 export const appStack = TabNavigator({
   Settings: { screen: Settings },
@@ -121,7 +197,10 @@ export const AppNavigator = StackNavigator({
   Home: {screen: Home},
   AssetSearch: {screen: AssetSearch},
   BuyAsset: {screen: BuyAsset},
-  LeaderBoard: {screen: LeaderBoard},   
+  LeaderBoard: {screen: LeaderBoard},
+  ChoosePortfolio: {screen: ChoosePortfolio},  
+  Search: {screen: Search},
+  Market: { screen: Market },  
 }, {
     headerMode: 'none',
     navigationOptions: {

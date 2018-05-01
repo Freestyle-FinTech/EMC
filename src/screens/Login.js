@@ -9,21 +9,19 @@ import {
   TextInput,
   Image
 } from 'react-native';
-
 import { connect, dispatch } from 'react-redux';
 import { login } from '../actions/index';
-import axios from "axios";
 
 import CustomButton from '../components/CustomButton';
 import GoBackButton from '../components/GoBackButton';
-import { Colors } from '../constants/styles';
 import InputWithIcon from '../components/InputWithIcon';
 
-type Props = {};
-class Login extends Component<Props> {
+import { Colors } from '../constants/styles'
+
+class Login extends Component {
   state = {
-    username: "",
-    password: ""
+    username: "Ryan Gary",
+    password: "password"
   }
 
   onLoginPress = () => {

@@ -20,6 +20,7 @@ import PortfolioItem from '../components/PortfolioItem'
 type Props = {};
 
 const MarketItem = ({portfolio}) => {
+  // debugger
   return <View styl={{flex: 1}}>
     <PortfolioItem asset={portfolio.item} marginLeft={10}/>
     <View style={{flexDirection: 'row', paddingLeft: 10}}>
@@ -40,6 +41,9 @@ const resultStyles = StyleSheet.create({
 })
 
 class Market extends Component<Props> {
+  componentDidMount(){
+    // debugger
+  }
   render() {
     return (
       <View style={styles.container}>

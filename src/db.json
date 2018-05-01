@@ -1,7 +1,7 @@
 {
   "users": [
     {
-      "userName": "Ryan Gary",
+      "username": "Ryan Gary",
       "password": "password",
       "pictureUrl": "https://randomuser.me/api/portraits/thumb/men/83.jpg",
       "portfolioWorth": 111.23,
@@ -22,8 +22,18 @@
           "imgUrl": "https://i.guim.co.uk/img/media/7cd49fa81b1a41f1631902afdec6a2386ca38713/0_0_4000_3160/master/4000.jpg?w=700&q=55&auto=format&usm=12&fit=max&s=194fc11c9e124a94391d757dfd0562c7",
           "stocks": [
             {
-              "id": 12313,
-              "name": "Nasa"
+              "id": "3",
+              "heading": "NASA",
+              "name": "Space stuff",
+              "currentSharePrice": 54,
+              "priceChange": "+0.03%"
+            },
+            {
+              "id": "2",
+              "heading": "TSLA",
+              "name": "Tesla inc",
+              "currentSharePrice": 12.32,
+              "priceChange": "-2.01%"
             }
           ]
         },
@@ -40,17 +50,21 @@
           "imgUrl": "https://i2-prod.manchestereveningnews.co.uk/incoming/article14379834.ece/ALTERNATES/s615/050318_LRR_MEN_WomenTech.jpg",
           "stocks": [
             {
-              "id": 12313,
-              "name": "BitCoin"
+              "id": "2",
+              "heading": "BTCN",
+              "name": "Bitcoin",
+              "currentSharePrice": 123312.32,
+              "priceChange": "+1232.01%"
             }
           ]
         }
       ],
       "isLoggedIn": true,
+      "error": false,
       "loading": false
     },
     {
-      "userName": "Arash Asady",
+      "username": "Arash Asady",
       "password": "password",
       "portfolioWorth": 111.23,
       "portfolioGrowth": 3.23,
@@ -75,16 +89,10 @@
               "name": "Lyft"
             }
           ]
-        },
-        {
-          "name": "erere",
-          "imgUrl": "https://dmi3w0goirzgw.cloudfront.net/gallery-images/840x560/406000/600/406638.jpg",
-          "creator": {},
-          "worth": 29.56,
-          "priceChange": 1
         }
       ],
-      "isLoggedIn": true
+      "isLoggedIn": true,
+      "loading": false
     }
   ],
   "portfolios": [
