@@ -1,59 +1,76 @@
-import React, { Component } from 'react';
-import { connect } from 'react-redux';
+import React from 'react';
 import {
-  StyleSheet,
   Text,
   View,
+  StyleSheet, 
   TouchableOpacity,
-  ImageBackground,
-  Dimensions
+  FlatList
 } from 'react-native';
-import { Colors } from '../constants/styles';
+import { connect } from 'react-redux';
 
-import PortfolioList from '../components/PortfolioList';
+import { Colors } from '../constants/styles'
+import CustomButton from './CustomButton';
+import AssetListItem from './AssetListItem';
+import { setSelectedStock } from '../actions/index'
 
-class PortfolioTab extends Component {
-
-  render(){
-    return(
-      <View>
-        <View style={styles.portfolios}>
-          <PortfolioList portfolios={this.props.user.portfolios}/>
-          <CustomButton
-            buttonAction={() => { this.props.screenProps.navigate('CreatePortfolio')}}
-            buttonText="Create new"
+const PortfolioTab = (props) => {
+  let assets = props.selectedPortfolio.stocks
+  if (assets && assets.length !== 0) {
+    // debugger
+    return (
+      <View style={{flex: 1, minHeight: 300, marginTop: 20}}>
+        <FlatList
+          scrollEnabled={true}
+          data={assets}
+          renderItem={({item}) => <TouchableOpacity
+          onPress={() => {
+            props.setSelectedStock(item)
+          }}>
+            <AssetListItem result={item}/>
+          </TouchableOpacity>}
+          keyExtractor={(item, index) => index.toString()}
+        />
+        {/* <TouchableOpacity onPress={ () => props.screenProps.setSelectedPortfolio('lol') }>
+          <ResultItem
+            result={{title: "SPOT", name: 'Spotify Technology SA', price: '+3.45%'}}
           />
-        </View>
-        <View style={styles.portfolios}>
-          <Text style={styles.recommended}>Recommended</Text>
-          <PortfolioList portfolios={this.props.portfolios}/>        
-          <CustomButton
-            buttonAction={() => {}}
-            buttonText="Refresh"
+        </TouchableOpacity>
+        <TouchableOpacity onPress={ () => props.screenProps.setSelectedPortfolio('lol') }>
+          <ResultItem
+            result={{title: "TSLA", name: 'Tesla inc', price: '+1.45%'}}
           />
-        </View>
+        </TouchableOpacity>
+        <TouchableOpacity onPress={ () => props.screenProps.setSelectedPortfolio('lol') }>
+          <ResultItem
+            result={{title: "NASA", name: 'Space inc', price: '+2.45%'}}
+          />
+        </TouchableOpacity>
+        <TouchableOpacity onPress={ () => props.screenProps.setSelectedPortfolio('lol') }>
+          <ResultItem
+            result={{title: "NASCAR", name: 'Bootleg drinks inc', price: '+1.25%'}}
+          />
+        </TouchableOpacity> */}
+        <CustomButton
+          buttonText="Search assets"
+          buttonAction={ () => props.screenProps.navigation.navigate('AssetSearch')}
+        />
+      </View>
+    )
+  } else {
+    return (
+      <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
+        <Text>Looks like you don't have any assets</Text>
+        <CustomButton
+          buttonText="Search assets"
+          buttonAction={ () => props.screenProps.navigation.navigate('AssetSearch')}
+        />
       </View>
     )
   }
 }
 
-const styles = StyleSheet.create({
-  portfolios: {
-    borderRadius: 15,
-    backgroundColor: 'white',
-    marginTop: 5,
-    paddingBottom: 15,
-    justifyContent: 'center',
-  },
-  recommended: {
-    marginLeft: 15,
-    fontSize: 17
-  }
-});
-
 const mapStateToProps = (state) => ({
-  user: state.user,
-  portfolios: state.portfolios
+  selectedPortfolio: state.search.selectedPortfolio
 })
 
-export default connect(mapStateToProps)(PortfolioTab)
+export default connect(mapStateToProps, { setSelectedStock })(PortfolioTab)

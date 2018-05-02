@@ -21,7 +21,7 @@ export default class PortfolioList extends Component<Props> {
         numColumns={2}
         scrollEnabled={false}
         data={this.props.portfolios}
-        renderItem={({item}) => <ListItem asset={item}/>}
+        renderItem={({item}) => <ListItem asset={item} navigate={this.props.navigate}/>}
         keyExtractor={(item, index) => index.toString()}
       />
     )

@@ -13,7 +13,7 @@ export default CustomButton = ({buttonAction, buttonText, buttonStyles, textStyl
 const styles = StyleSheet.create({
   button: {
     justifyContent: 'center',
-    height: 40,
+    height: 44,
     width: '90%',
     borderRadius: 20,
     backgroundColor: Colors.appGrey,

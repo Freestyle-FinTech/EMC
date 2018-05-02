@@ -1,29 +1,6 @@
 initialState = {
-  selectedPortfolio: {
-    "id": 1,
-    "name": "AeroSpace",
-    "worth": 82.56,
-    "priceChange": 2.34,
-    "creator": {
-      "username": "@uncleSam",
-      "name": "George Bush",
-      "portfolioUrl": "https://randomuser.me/api/portraits/thumb/men/81.jpg"
-    },
-    "imgUrl": "https://i.guim.co.uk/img/media/7cd49fa81b1a41f1631902afdec6a2386ca38713/0_0_4000_3160/master/4000.jpg?w=700&q=55&auto=format&usm=12&fit=max&s=194fc11c9e124a94391d757dfd0562c7",
-    "stocks": [
-      {
-        "id": 12313,
-        "name": "Nasa"
-      }
-    ]
-  },
-  selectedStock: {
-    "id": "3",
-    "heading": "NASA",
-    "name": "Space stuff",
-    "currentSharePrice": 54.00,
-    "priceChange": "+0.03%"
-  },
+  selectedPortfolio: null,
+  selectedStock: null,
   stockResults: [],
   portfolioResults: []
 }
@@ -38,10 +15,21 @@ export default stuff = (state = initialState, action) => {
       // debugger
       console.log('set selected portfolio')
       return { ...state, selectedPortfolio: action.payload}
+    case 'SET_SELECTED_PORTFOLIO':
+      return { ...state, selectedPortfolio: action.payload}
     case 'SET_SELECTED_STOCK':
       console.log('set selected stock')
       // debugger
-      return { ...state, selectedStock: action.payload}
+      return { ...state, selectedStock: action.payload, stockResults: []}
+    case 'ADD_ASSET_TO_PORTFOLIO':
+      console.log('clear selected stock on adding asset to portfolio')      
+      return {...state, selectedStock: null, stockResults: []}
+    case 'CLEAR_SELECTED_PORTFOLIO':
+      console.log('clear selected porfolio')      
+      return {...state, selectedPortfolio: null}
+    case 'CLEAR_SELECTED_STOCK':
+      console.log('clear selected stock')
+      return {...state, selectedStock: null, stockResults: []}
     default:
       return state;
   }

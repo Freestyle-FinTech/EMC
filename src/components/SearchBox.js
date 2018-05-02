@@ -9,9 +9,10 @@ import {
   TextInput,
   TouchableOpacity
 } from 'react-native';
-import {connect, dispatch} from 'react-redux';
+import { connect, dispatch } from 'react-redux';
 import { Colors } from '../constants/styles';
 import axios from 'axios';
+import InputWithIcon from './InputWithIcon';
 
 class SearchBox extends Component {
   state = {
@@ -22,7 +23,9 @@ class SearchBox extends Component {
     // console.log("searching for " + this.state.searchQuery)
     axios.get("http://localhost:3000/stocks")
       .then( res => {
-        // debugger
+        console.log('I fail here')
+        console.log(res)
+        debugger
         let results = res.data.filter( stock => (
           stock.heading.toLowerCase().includes(this.state.searchQuery.toLowerCase()) || 
           stock.name.toLowerCase().includes(this.state.searchQuery.toLowerCase())
@@ -31,28 +34,20 @@ class SearchBox extends Component {
         this.props.setSearchResults(results)
       })
       .catch( err => console.log(err))
-    this.setState({searchQuery})      
+    // this.setState({searchQuery})      
   }
 
   render(){
     return(
       <View style={styles.searchBox}>
-        <Text style={styles.heading}>Search</Text>
-        <View style={styles.inputBox}>
-          <TouchableOpacity
-            onPress={this.onSearchClicked}>
-            <Image
-              style={styles.inputImage}
-              source={{uri: "https://cdn2.iconfinder.com/data/icons/lightly-icons/30/search-480.png"}}
-            />
-          </TouchableOpacity>
-          <TextInput
-            placeholder="stock name"          
-            onChangeText={this.onSearchClicked}
-            value={this.state.searchQuery}  
-            style={styles.input}
-            underlineColorAndroid='rgba(0,0,0,1)'/>
-        </View>
+        <Text style={styles.stuff}>Search</Text>
+        <InputWithIcon
+          iconUrl="https://cdn2.iconfinder.com/data/icons/lightly-icons/30/search-480.png"
+          placeholder="Search any ticker, industry, name, etc."
+          inputValue={this.state.searchQuery}
+          onInputChange={searchQuery => this.setState({searchQuery})}
+          onSubmitEditing={this.onSearchClicked}
+        />
       </View>
     )
   }
@@ -77,7 +72,7 @@ const styles = StyleSheet.create({
     shadowRadius: 4,
     shadowOpacity: 1.0,
   },
-  heading: {
+  stuff: {
     fontWeight: 'bold',
     fontSize: 20,
     marginTop: 20,

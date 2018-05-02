@@ -6,9 +6,9 @@ import {
   View,
   TouchableOpacity
 } from 'react-native';
-import {connect, dispatch} from 'react-redux'
+import { connect, dispatch } from 'react-redux'
 
-import { logout } from '../actions/auth'
+import { logout } from '../actions/index'
 
 import CustomButton from '../components/CustomButton'
 import { Colors } from '../constants/styles'
@@ -50,11 +50,7 @@ class Settings extends Component<Props> {
   }
 }
 
-mapDispatchToProps = (dispatch) => ({
-  logout: () => dispatch({type: "LOGOUT"})
-})
-
-export default connect(null, mapDispatchToProps)(Settings)
+export default connect(null, {logout})(Settings)
 
 const styles = StyleSheet.create({
   container: {

@@ -16,7 +16,7 @@ const UserInfo = ({user, stuff}) => (
       style={{height: 50, width: 50, borderRadius: 25, marginTop: 50, borderWidth: 1, borderColor: 'orange'}}
     />
     <Text>{stuff}</Text>
-    <Text>{user.userName}</Text>
+    <Text>{user.username}</Text>
     <Text>{user.about}</Text>    
   </View>
 )
