@@ -1,3 +1,5 @@
+import ChartGenerator from '../chartGenerator';
+
 const initialState = {
   // "username": "Ryan Gary",
   // "password": "password",
@@ -44,6 +46,7 @@ const initialState = {
   //     ]
   //   }
   // ],
+  // "chart": ChartGenerator(),
   // "isLoggedIn": true,
   // "error": false,
   // "loading": false
@@ -52,7 +55,7 @@ const initialState = {
 const user = (state = initialState, action) => {
   // debugger
   switch (action.type) {
-    case 'LOGIN': 
+    case 'LOGIN':
       return { ...action.payload, 
           isLoggedIn: true,
           loading: false
@@ -71,6 +74,7 @@ const user = (state = initialState, action) => {
       let portfolios = [...state.portfolios, newPortfolio]
       return { ...state, portfolios}
     case 'ADD_ASSET_TO_PORTFOLIO':
+      // debugger
       return {...state, portfolios: action.payload}
     default:
       return state;

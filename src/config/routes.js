@@ -194,13 +194,9 @@ export const AppNavigator = StackNavigator({
   Register: { screen: Register },
   App: { screen: appStack},
   CreatePortfolio: {screen: CreatePortfolio},
-  Home: {screen: Home},
   AssetSearch: {screen: AssetSearch},
   BuyAsset: {screen: BuyAsset},
-  LeaderBoard: {screen: LeaderBoard},
-  ChoosePortfolio: {screen: ChoosePortfolio},  
-  Search: {screen: Search},
-  Market: { screen: Market },  
+  ChoosePortfolio: {screen: ChoosePortfolio},
 }, {
     headerMode: 'none',
     navigationOptions: {

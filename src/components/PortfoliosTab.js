@@ -13,12 +13,18 @@ import { Colors } from '../constants/styles';
 import PortfolioList from '../components/PortfolioList';
 
 class PortfoliosTab extends Component {
-
+  buildPortfolios = () => {
+    if(this.props.user.portfolios.length === 0){
+      return <Text style={{marginTop: 15, marginBottom: 15, alignSelf: 'center'}}>Looks Like you don't have any portfolios</Text>
+    } else {
+      return <PortfolioList portfolios={this.props.user.portfolios}/>
+    }
+  }
   render(){
     return(
       <View>
         <View style={styles.portfolios}>
-          <PortfolioList portfolios={this.props.user.portfolios}/>
+          {this.buildPortfolios()}
           <CustomButton
             buttonAction={() => { this.props.screenProps.navigation.navigate('CreatePortfolio')}}
             buttonText="Create new"

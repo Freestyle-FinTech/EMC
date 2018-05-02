@@ -8,7 +8,7 @@ import {
 import CustomButton from './CustomButton';
 
 export default AssetTab = (props) => (
-  <View style={{flex: 1, minHeight: 280, marginTop: 20, alignItems: 'center',justifyContent: 'center', backgroundColor: 'white'}}>
+  <View style={{flex: 1, minHeight: 300, marginTop: 20, alignItems: 'center',justifyContent: 'center', backgroundColor: 'white'}}>
     <CustomButton 
       buttonText="Buy Asset" 
       buttonAction={() => props.screenProps.navigation.navigate('BuyAsset')}/>

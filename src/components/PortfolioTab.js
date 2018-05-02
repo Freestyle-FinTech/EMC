@@ -18,7 +18,7 @@ const PortfolioTab = (props) => {
   if (assets && assets.length !== 0) {
     // debugger
     return (
-      <View>
+      <View style={{flex: 1, minHeight: 300, marginTop: 20}}>
         <FlatList
           scrollEnabled={true}
           data={assets}
@@ -50,6 +50,10 @@ const PortfolioTab = (props) => {
             result={{title: "NASCAR", name: 'Bootleg drinks inc', price: '+1.25%'}}
           />
         </TouchableOpacity> */}
+        <CustomButton
+          buttonText="Search assets"
+          buttonAction={ () => props.screenProps.navigation.navigate('AssetSearch')}
+        />
       </View>
     )
   } else {

@@ -5,18 +5,49 @@ import {
   Text,
   View,
 } from 'react-native';
+import { VictoryLine, VictoryChart, VictoryTheme, VictoryBar, border, VictoryAxis } from 'victory-native';
 
 import { Colors } from '../constants/styles';
+const NUMBER_OF_POINTS = 20
+
+const randomNum = (i) => Math.floor(Math.random() * 20 + Math.log2(i * (i/100))) * (Math.random() < .03 ? 4 : 1)
+
+const generateChart = () => Array.apply(null, {length: NUMBER_OF_POINTS}).map( (el, i) => randomNum(i+1))
 
 export default AssetListItem = ({result}) => (
   <View style={resultStyles.resultBox}>
     <View>
-      <Text style={resultStyles.heading}>{result.title}</Text>
+      <Text style={resultStyles.stuff}>{result.heading}</Text>
       <Text style={resultStyles.name}>{result.name}</Text>      
     </View>
-    <View><Text>tiny chart</Text></View>
     <View>
-      <Text style={resultStyles.price}>{result.price}</Text>
+      <VictoryChart
+        theme={null}
+        animate={{easing: 'cubicInOut', duration: 500, onLoad: { duration: 50 }}}
+        categories={null}
+        labels={null}
+        padding={0}
+        width={80}
+        height={30}>
+        <VictoryLine
+          style={{
+            data: { stroke: Colors.appGreen, strokeWidth: 1 }
+          }}
+          data={generateChart()}
+        />
+        <VictoryLine
+          style={{
+            data: { stroke: Colors.appGrey, strokeDasharray: "4,4", strokeWidth: 1 }
+          }}
+          labelComponent={<Text style={{fontSize: 10, color: 'red'}}>closing $1</Text>}
+          labels={['closing $1']}            
+          data={[{x:0, y: 10},{x:20,y:10}]}
+        />
+          <VictoryAxis tickFormat={() => ''} style={{ axis: {stroke: "none"} }} />        
+        </VictoryChart>
+      </View>
+      <View>
+      <Text style={resultStyles.price}>{result.change}</Text>
     </View>
   </View>
 )
@@ -41,7 +72,7 @@ const resultStyles = StyleSheet.create({
     marginLeft: 10,
     marginRight: 10
   },
-  heading: {
+  stuff: {
     fontWeight: 'bold',
     fontSize: 15,
   },

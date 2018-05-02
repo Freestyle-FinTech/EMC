@@ -1,4 +1,6 @@
 import axios from 'axios';
+import ChartGenerator from '../chartGenerator';
+import GenerateCharts from '../chartGenerator';
 
 const generateId = () => Math.floor(Math.random()*16777215).toString(16);
 
@@ -35,19 +37,20 @@ export const clearSelectedStock = () => dispatch => {
   return dispatch({type: 'CLEAR_SELECTED_STOCK'})
 }
 
-
 export const buyAsset = (investmentValue, numberOfShares) => (dispatch, getState) => {
   let currentState = getState();
   let user = {...currentState.user}
   let selectedPortfolio = currentState.search.selectedPortfolio
   let selectedStock = currentState.search.selectedStock  
   let asset = {...selectedStock, investmentValue, numberOfShares}
-  let portfolioIndex;
+  // debugger
+  let portfolioIndex
   user.portfolios.map( (portfolio, i) => {
-    portfolio.id === selectedPortfolio.id ? portfolioIndex = i : null 
+    portfolio.id.toString() === selectedPortfolio.id.toString() ? portfolioIndex = i : null 
   })
-  if(portfolioIndex) {
+  if(portfolioIndex !== undefined) {
     user.portfolios[portfolioIndex].stocks.push(asset)
+    // debugger
     return axios({
       url: `http://localhost:3000/users/${user.id}`,
       data: user,
@@ -55,8 +58,10 @@ export const buyAsset = (investmentValue, numberOfShares) => (dispatch, getState
       headers: {
         'Content-Type': 'application/json'
       }
-    }).then( res => { 
+    }).then( res => {
+      // debugger
       dispatch({type: 'ADD_ASSET_TO_PORTFOLIO', payload: user.portfolios})
+      navigate()
     }).catch( err => {
       console.log(err)
     })
@@ -80,6 +85,7 @@ export const createPortfolio = (newPortfolio, navigate) => (dispatch, getState) 
     },
     "stocks": [],
     "worth": 29.56,
+    "chart": GenerateCharts(),
     "priceChange": Math.round(Math.random()/100) * 100 + 1
   }
   let portfolios = [...user.portfolios, hello]

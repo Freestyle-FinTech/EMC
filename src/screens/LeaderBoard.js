@@ -11,6 +11,13 @@ import {
 import WithChart from '../components/WithChart';
 import { Colors } from '../constants/styles';
 import { connect } from 'react-redux';
+import { VictoryLine, VictoryChart, VictoryTheme, VictoryBar, border, VictoryAxis } from 'victory-native';
+
+const NUMBER_OF_POINTS = 20
+
+const randomNum = (i) => Math.floor(Math.random() * 20 + Math.log2(i * (i/100))) * (Math.random() < .03 ? 4 : 1)
+
+const generateChart = () => Array.apply(null, {length: NUMBER_OF_POINTS}).map( (el, i) => randomNum(i+1))
 
 const ResultItem = ({result}) => (
   <View style={[resultStyles.resultBox, result.first ? {marginLeft: 0, marginRight: 0, marginTop: 0} : {}]}>
@@ -21,11 +28,36 @@ const ResultItem = ({result}) => (
       />
     </View>
     <View>
-      <Text style={resultStyles.heading}>{result.name}</Text>
+      <Text style={resultStyles.stuff}>{result.name}</Text>
       <Text style={resultStyles.name}>{result.username}</Text>
     </View>
     <View>
-      <Text style={{color: 'green'}}>pretty chart</Text>
+      <Text style={{color: 'green'}}>
+      <VictoryChart
+          theme={null}
+          animate={{easing: 'cubicInOut', duration: 500, onLoad: { duration: 50 }}}
+          categories={null}
+          labels={null}
+          padding={0}
+          width={80}
+          height={30}>
+          <VictoryLine
+            style={{
+              data: { stroke: Colors.appGreen, strokeWidth: 1 }
+            }}
+            data={generateChart()}
+          />
+          <VictoryLine
+            style={{
+              data: { stroke: Colors.appGrey, strokeDasharray: "4,4", strokeWidth: 1 }
+            }}
+            labelComponent={<Text style={{fontSize: 10, color: 'red'}}>closing $1</Text>}
+            labels={['closing $1']}            
+            data={[{x:0, y: 10},{x:20,y:10}]}
+          />
+          <VictoryAxis tickFormat={() => ''} style={{ axis: {stroke: "none"} }} />        
+        </VictoryChart>
+      </Text>
     </View>
     <View style={resultStyles.priceBox}>
       <Text style={resultStyles.price}>+{Math.round(Math.random() * 2000)/100}%</Text>
@@ -53,7 +85,7 @@ const resultStyles = StyleSheet.create({
     marginLeft: 10,
     marginRight: 10
   },
-  heading: {
+  stuff: {
     fontWeight: 'bold',
     fontSize: 15,
   },
@@ -64,7 +96,7 @@ const resultStyles = StyleSheet.create({
     backgroundColor: Colors.appGreen,
     borderRadius: 5,
     height: 20,
-    width: 55,
+    width: 60,
     justifyContent: 'center',
     alignItems: 'center'
   },
@@ -87,8 +119,8 @@ class LeaderBoard extends Component<Props> {
           <WithChart>
             <View style={{height: 90, backgroundColor: 'white', borderTopLeftRadius: 15, borderTopRightRadius: 15}}>
               <View style={{position: 'absolute', top: 20, left: 10}}>
-                <Text style={styles.heading}>The EMCEE</Text>
-                <Text style={styles.heading}>Community</Text>
+                <Text style={styles.stuff}>The EMCEE</Text>
+                <Text style={styles.stuff}>Community</Text>
               </View>
               <View style={{alignItems: 'center', justifyContent: 'center', flex: 1}}>
                 <Text style={styles.worth}>${worth}</Text>
@@ -143,7 +175,7 @@ const styles = StyleSheet.create({
   worth: {
     fontSize: 24,
   },
-  heading: {
+  stuff: {
     fontWeight: 'bold',
     fontSize: 16,
     marginTop: 5,

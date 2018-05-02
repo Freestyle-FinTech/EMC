@@ -17,16 +17,49 @@ import PortfolioList from '../components/PortfolioList'
 import SearchBox from '../components/SearchBox'
 import GoBackButton from '../components/GoBackButton';
 type Props = {};
+import { VictoryLine, VictoryChart, VictoryTheme, VictoryBar, border, VictoryAxis } from 'victory-native';
+
+const NUMBER_OF_POINTS = 20
+
+const randomNum = (i) => Math.floor(Math.random() * 20 + Math.log2(i * (i/100))) * (Math.random() < .03 ? 4 : 1)
+
+const generateChart = () => Array.apply(null, {length: NUMBER_OF_POINTS}).map( (el, i) => randomNum(i+1))
 
 const ResultItem = ({result}) => {
+    // debugger
     return(<View style={resultStyles.resultBox}>
       <View>
-        <Text style={resultStyles.heading}>{result.heading}</Text>
+        <Text style={resultStyles.stuff}>{result.heading}</Text>
         <Text style={resultStyles.name}>{result.name}</Text>      
       </View>
-      <View><Text>tiny chart</Text></View>
       <View>
-        <Text style={resultStyles.price}>{result.priceChange}</Text>
+        <VictoryChart
+          theme={null}
+          animate={{easing: 'cubicInOut', duration: 500, onLoad: { duration: 50 }}}
+          categories={null}
+          labels={null}
+          padding={0}
+          width={80}
+          height={30}>
+          <VictoryLine
+            style={{
+              data: { stroke: (result.change.toString().includes('-') ? Colors.appPurple : Colors.appGreen), strokeWidth: 1 }
+            }}
+            data={generateChart()}
+          />
+          <VictoryLine
+            style={{
+              data: { stroke: Colors.appGrey, strokeDasharray: "4,4", strokeWidth: 1 }
+            }}
+            labelComponent={<Text style={{fontSize: 10, color: 'red'}}>closing $1</Text>}
+            labels={['closing $1']}            
+            data={[{x:0, y: 10},{x:20,y:10}]}
+          />
+          <VictoryAxis tickFormat={() => ''} style={{ axis: {stroke: "none"} }} />        
+        </VictoryChart>
+      </View>
+      <View>
+        <Text style={resultStyles.price}>{result.change}</Text>
       </View>    
     </View>
     )
@@ -52,7 +85,7 @@ const resultStyles = StyleSheet.create({
     marginLeft: 10,
     marginRight: 10
   },
-  heading: {
+  stuff: {
     fontWeight: 'bold',
     fontSize: 15,
   },
@@ -79,7 +112,6 @@ class AssetSearch extends Component<Props> {
           <FlatList
             scrollEnabled={true}
             data={this.props.stockResults}
-            // data={[{heading: "SPOT", name: 'Spotify Technology SA', price: '+3.45%'},{heading: "SPOT", name: 'Spotify Technology SA', price: '+3.45%'}]}
             renderItem={({item}) => <TouchableOpacity
             onPress={() => {
               this.props.setSelectedStock(item)
@@ -87,9 +119,6 @@ class AssetSearch extends Component<Props> {
             }}><ResultItem result={item}/></TouchableOpacity>}
             keyExtractor={(item, index) => index.toString()}
           />
-          {/* <ResultItem
-            result={{title: "SPOT", name: 'Spotify Technology SA', price: '+3.45%'}}
-          /> */}
         </View>
       </View>
     );

@@ -40,7 +40,7 @@ class SearchBox extends Component {
   render(){
     return(
       <View style={styles.searchBox}>
-        <Text style={styles.heading}>Search</Text>
+        <Text style={styles.stuff}>Search</Text>
         <InputWithIcon
           iconUrl="https://cdn2.iconfinder.com/data/icons/lightly-icons/30/search-480.png"
           placeholder="Search any ticker, industry, name, etc."
@@ -72,7 +72,7 @@ const styles = StyleSheet.create({
     shadowRadius: 4,
     shadowOpacity: 1.0,
   },
-  heading: {
+  stuff: {
     fontWeight: 'bold',
     fontSize: 20,
     marginTop: 20,

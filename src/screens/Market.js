@@ -19,10 +19,12 @@ import PortfolioItem from '../components/PortfolioItem'
 
 type Props = {};
 
-const MarketItem = ({portfolio}) => {
+const MarketItem = ({portfolio, navigation}) => {
   // debugger
   return <View styl={{flex: 1}}>
-    <PortfolioItem asset={portfolio.item} marginLeft={10}/>
+    <PortfolioItem 
+      navigate={() => navigation.navigate('Home')}
+      asset={portfolio.item} marginLeft={10}/>
     <View style={{flexDirection: 'row', paddingLeft: 10}}>
       <Image 
         source={{uri: portfolio.item.creator.portfolioUrl}}
@@ -48,7 +50,7 @@ class Market extends Component<Props> {
     return (
       <View style={styles.container}>
         <View style={{backgroundColor: Colors.appWhite, borderTopLeftRadius: 15, borderTopRightRadius: 15, flex: 1}}>
-          <Text style={styles.heading}>Marketplace</Text>
+          <Text style={styles.stuff}>Marketplace</Text>
           <Text style={styles.text}>From content creators we love</Text>
           <View>
             <FlatList
@@ -56,7 +58,7 @@ class Market extends Component<Props> {
               horizontal={true}
               scrollEnabled={true}
               showsHorizontalScrollIndicator={false}
-              renderItem={ (item) => <MarketItem portfolio={item}/> }
+              renderItem={ (item) => <MarketItem navigation={this.props.navigation} portfolio={item}/> }
               keyExtractor={(item, index) => index.toString()}
             />
           </View>
@@ -109,7 +111,7 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: Colors.appGrey,
   },
-  heading: {
+  stuff: {
     fontWeight: 'bold',
     fontSize: 20,
     marginTop: 20,

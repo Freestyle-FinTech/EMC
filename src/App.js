@@ -4,7 +4,7 @@ import { StatusBar, View, Platform, StyleSheet, Text } from 'react-native';
 import AppWithNavigationState from './config/routes';
 import store from './config/store';
 import { Colors } from './constants/styles';
-
+import axios from 'axios';
 const STATUSBAR_HEIGHT = Platform.OS === 'ios' ? 20 : StatusBar.currentHeight;
 
 const MyStatusBar = ({backgroundColor, ...props}) => (

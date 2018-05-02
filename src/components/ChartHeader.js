@@ -12,31 +12,41 @@ import { Colors } from '../constants/styles';
 import { clearSelectedPortfolio, clearSelectedStock } from '../actions/index';
 
 const ChartHeader = (props) => {
+  let TopLeft;  
   const date = new Date()
-  const growth = props.user.portfolioGrowth
-  const plus = growth > 0 ? '+' : ''
-  const worth = props.user.portfolioWorth
   const hours = date.getHours() <= 12 ? date.getHours() : 24 - date.getHours()
   const ampm = date.getHours() <= 12 ? 'am' : 'pm' 
   const currentTime = `Today ${hours}:${date.getMinutes()}${ampm}`
-  let TopLeft;
+  let growth 
+  let worth 
+  // debugger
+
   if(props.selectedStock) {
+    growth = props.selectedStock.change
+    worth = props.selectedStock.worth
     TopLeft = () => (<View style={{position: 'absolute', alignSelf: 'flex-start'}}>
-      <Text style={styles.heading} onPress={props.clearSelectedStock}>{props.selectedStock.name}</Text>
+      <Text style={styles.stuff} onPress={props.clearSelectedStock}>{props.selectedStock.name}</Text>
     </View>)
   } else if(props.selectedPortfolio) {
+    growth = props.selectedPortfolio.change
+    worth = props.selectedPortfolio.worth
     TopLeft = () => (<View style={{position: 'absolute', alignSelf: 'flex-start'}}>
-      <Text style={styles.heading} onPress={props.clearSelectedPortfolio}>{props.selectedPortfolio.name}</Text>  
+      <Text style={styles.stuff} onPress={props.clearSelectedPortfolio}>{props.selectedPortfolio.name}</Text>  
     </View>)
   } else {
+    worth = props.user.worth
+    growth = props.user.change
+    // debugger
     TopLeft = () => (<View style={{position: 'absolute', alignSelf: 'flex-start'}}>
-        <Image
-          source={{uri: props.user.pictureUrl}}
-          style={{height: 40, width: 40, borderRadius: 20, marginTop: 10, marginLeft: 10}}
-        />
-        <Text style={styles.heading}>{props.user.username}</Text>
-      </View>)
+      <Image
+        source={{uri: props.user.pictureUrl}}
+        style={{height: 40, width: 40, borderRadius: 20, marginTop: 10, marginLeft: 10}}
+      />
+      <Text style={styles.stuff}>{props.user.username}</Text>
+    </View>)
   }
+  
+  const plus = growth > 0 ? '+' : ''
   return (
     <View style={{height: 90, backgroundColor: 'white', borderTopLeftRadius: 15, borderTopRightRadius: 15}}>
       <View style={{alignItems: 'center', justifyContent: 'center', flex: 1}}>
@@ -62,7 +72,7 @@ const styles = StyleSheet.create({
   container: {
     backgroundColor: Colors.appGrey,
   },
-  heading: {
+  stuff: {
     fontWeight: 'bold',
     fontSize: 18,
     marginTop: 5,

@@ -21,76 +21,88 @@ import { buyAsset } from '../actions/index';
 type Props = {};
 
 class Search extends Component<Props> {
-  state={
+  state = {
     numberOfShares: '',
     investmentValue: '',    
   }
-  
+
   placeOrderHandler = () => {
-    debugger
-    this.props.buyAsset(this.state.investmentValue, this.state.numberOfShares)
-    this.props.navigation.navigate('App')
+    this.props.buyAsset(this.state.investmentValue, this.state.numberOfShares, () => this.props.navigation.navigate('App'))
   }
 
+  userOwnsPortfolio = () => {
+    let arr = []
+    if (this.props.selectedPortfolio){
+      arr = this.props.userPortfolios.filter( portfolio => portfolio.id === this.props.selectedPortfolio.id )
+    }
+    // debugger
+    return arr.length === 0 ? false : true
+  } 
+
   render() {
-    return (
-      <View style={styles.container}>
-        <View style={{flex: 1, backgroundColor: 'white'}}>
-          <GoBackButton navigation={this.props.navigation}/>
-          {this.props.selectedPortfolio
-          ? 
-            <PortfolioItem asset={this.props.selectedPortfolio} navigate={() => this.props.navigation.navigate('ChoosePortfolio')} width={100}/>
-          :
-            <CustomButton 
-              buttonText='Select portfolio'
-              textStyles={{color: 'white'}} 
-              buttonStyles={{ marginTop: 60, width: 180, height: 50, borderRadius: 25, backgroundColor: Colors.appGreen}}
-              buttonAction={() => this.props.navigation.navigate('ChoosePortfolio')}/>
-          }
-          <View style={{alignItems: 'center'}}>
-            <Text>{this.props.selectedStock.heading}</Text>
-            <Text>{this.props.selectedStock.name}</Text>
-            <Text>current share price:</Text>
-            <Text>{this.props.selectedStock.currentSharePrice}</Text>
+    if(this.props.selectedStock){
+      return (
+        <View style={styles.container}>
+          <View style={{flex: 1, backgroundColor: 'white'}}>
+            <GoBackButton navigation={this.props.navigation}/>
+            {this.userOwnsPortfolio()
+            ? 
+              <PortfolioItem asset={this.props.selectedPortfolio} navigate={() => this.props.navigation.navigate('ChoosePortfolio')} width={100}/>
+            :
+              <CustomButton 
+                buttonText='Select portfolio'
+                textStyles={{color: 'white'}} 
+                buttonStyles={{ marginTop: 60, width: 180, height: 50, borderRadius: 25, backgroundColor: Colors.appGreen}}
+                buttonAction={() => this.props.navigation.navigate('ChoosePortfolio')}/>
+            }
+            <View style={{alignItems: 'center'}}>
+              <Text>{this.props.selectedStock.heading}</Text>
+              <Text>{this.props.selectedStock.name}</Text>
+              <Text>current share price:</Text>
+              <Text>{this.props.selectedStock.worth}</Text>
+            </View>
+            <View style={styles.inputBox}>
+              <Text style={{alignSelf: 'flex-end'}}>Investment value</Text>
+              <TextInput
+                placeholder="$0.00"
+                keyboardType="numeric"                     
+                onChangeText={ investmentValue => 
+                  this.setState({
+                    investmentValue, 
+                    numberOfShares: (Math.round(parseFloat(investmentValue)/this.props.selectedStock.worth* 100)/100).toString()
+                  })}               
+                value={this.state.investmentValue === "NaN" ? '' : this.state.investmentValue}                   
+                style={styles.input}
+                underlineColorAndroid='rgba(0,0,0,0)'/>
+            </View>
+            <View style={styles.inputBox}>
+              <Text style={{alignSelf: 'flex-end'}}>Number of shares</Text>
+              <TextInput
+                keyboardType="numeric"                        
+                placeholder="0"
+                onChangeText={ numberOfShares => 
+                  this.setState({
+                    numberOfShares, 
+                    investmentValue: (Math.round(parseFloat(numberOfShares) * this.props.selectedStock.worth * 100)/100).toString()
+                  })}
+                value={this.state.numberOfShares === "NaN" ? '' : this.state.numberOfShares}              
+                style={styles.input}
+                underlineColorAndroid='rgba(0,0,0,0)'/>
+            </View>
+            <CustomButton buttonAction={this.placeOrderHandler} buttonText="Place order"/>        
           </View>
-          <View style={styles.inputBox}>
-            <Text style={{alignSelf: 'flex-end'}}>Investment value</Text>
-            <TextInput
-              placeholder="$0.00"
-              keyboardType="numeric"                     
-              onChangeText={ investmentValue => 
-                this.setState({
-                  investmentValue, 
-                  numberOfShares: (Math.round(parseFloat(investmentValue)/this.props.selectedStock.currentSharePrice* 100)/100).toString()
-                })}               
-              value={this.state.investmentValue === "NaN" ? '' : this.state.investmentValue}                   
-              style={styles.input}
-              underlineColorAndroid='rgba(0,0,0,0)'/>
-          </View>
-          <View style={styles.inputBox}>
-            <Text style={{alignSelf: 'flex-end'}}>Number of shares</Text>
-            <TextInput
-              keyboardType="numeric"                        
-              placeholder="0"
-              onChangeText={ numberOfShares => 
-                this.setState({
-                  numberOfShares, 
-                  investmentValue: (Math.round(parseFloat(numberOfShares) * this.props.selectedStock.currentSharePrice * 100)/100).toString()
-                })}
-              value={this.state.numberOfShares === "NaN" ? '' : this.state.numberOfShares}              
-              style={styles.input}
-              underlineColorAndroid='rgba(0,0,0,0)'/>
-          </View>
-          <CustomButton buttonAction={this.placeOrderHandler} buttonText="Place order"/>        
         </View>
-      </View>
-    );
+      );
+      } else {
+        return (<Text onClick={this.props.navigation.navigate('App')}>lol</Text>)
+      }
   }
 }
 
 const mapStateToProps = (state) => ({
   selectedPortfolio: state.search.selectedPortfolio,
-  selectedStock: state.search.selectedStock
+  selectedStock: state.search.selectedStock,
+  userPortfolios: state.user.portfolios,  
 })
 
 // const mapDispatchToProps = (dispatch) => ({
